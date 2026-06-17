@@ -1,0 +1,11 @@
+{
+  "name": "knowledge-os",
+  "owner": { "name": "Adrian Skobiej" },
+  "plugins": [
+    {
+      "name": "knowledge-os",
+      "source": "./",
+      "description": "Firmowy system wiedzy / Company knowledge system: Markdown + samodzielny przeglądarkowy viewer, komendy /kb-* (PL + en), auto-reindex."
+    }
+  ]
+}

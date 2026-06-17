@@ -1,0 +1,4 @@
+{
+  "_opis": "Chronione cytaty (wymuszane kodem). id = identyfikator, text = DOSŁOWNY cytat, in = (opcjonalnie) plik, w którym musi występować. Po dodaniu lub świadomej zmianie uruchom: node scripts/reindex.mjs --bless-quotes",
+  "quotes": []
+}

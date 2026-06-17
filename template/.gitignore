@@ -1,0 +1,7 @@
+# Pliki generowane przez scripts/reindex.mjs — regenerowane przy każdym /kb-sync.
+# Trzymane poza gitem, żeby uniknąć konfliktów merge między osobami.
+INDEX.md
+kb-data.js
+
+.DS_Store
+node_modules/
