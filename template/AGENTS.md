@@ -14,6 +14,13 @@ Firmowa baza wiedzy. Źródłem prawdy są pliki `.md` z frontmatterem w katalog
 
 Oba pliki są generowane i w `.gitignore` — nigdy ich nie edytuj ręcznie.
 
+## Co tu trafia (a co NIE)
+
+Tu trafia WYŁĄCZNIE wydestylowana wiedza (.md): decyzje, procesy, fakty, ludzie, wnioski.
+To NIE jest magazyn projektów. Nigdy nie kopiuj tutaj kodu, całych plików ani repozytoriów
+projektów. Projekty zostają tam, gdzie są (rozsiane po dysku) — w bazie tylko ZAPISUJESZ
+z nich wiedzę. Pracę prowadzisz w katalogu projektu, a wiedzę zapisujesz do tej bazy.
+
 ## Złota zasada dla asystenta
 
 Nie ładuj całej bazy do kontekstu. Przeczytaj `INDEX.md`, na podstawie `summary`/`tags`

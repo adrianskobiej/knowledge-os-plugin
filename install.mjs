@@ -149,7 +149,9 @@ function awarenessText(bases) {
 A personal/company knowledge base is available on this machine. Registered base(s):
 ${list}
 
-When the user asks about something that may be stored there, consult it: read \`<base>/INDEX.md\` first, then open only the relevant \`.md\` files (follow \`[[slug]]\` links) — never load the whole base. When the user shares durable, reusable knowledge worth keeping (decisions, processes, people, facts), offer to save it into the base and run \`node scripts/reindex.mjs\` there afterwards. Full rules live in \`<base>/AGENTS.md\`.
+The base stores ONLY distilled knowledge (decisions, processes, facts, people) as Markdown — it is NOT a project store. Never move, copy, or commit project source code or whole files into it; keep working in each project's own location and only save knowledge here.
+
+When the user asks about something that may be stored there, consult it: read \`<base>/INDEX.md\` first, then open only the relevant \`.md\` files (follow \`[[slug]]\` links) — never load the whole base. When the user shares durable, reusable knowledge worth keeping, distill it into a short \`.md\` article in the base and run \`node scripts/reindex.mjs\` there afterwards. Full rules live in \`<base>/AGENTS.md\`.
 ${MARK_END}`;
 }
 

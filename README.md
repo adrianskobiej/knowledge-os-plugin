@@ -38,6 +38,8 @@ deploy   → commit + push to your company repo
 
 Each company = its own private git repo. This repo is the machinery you stamp new bases out of.
 
+> **The base stores knowledge, not projects.** Your code and projects stay wherever they already live (scattered across disk). You never move them into the base — from any project, you only save *distilled* knowledge (decisions, processes, facts, people) into the central base. The agent's global awareness makes this happen without leaving your project folder.
+
 ## Quick start
 
 **Requirements:** [Node.js](https://nodejs.org) (that's it — no npm install, zero dependencies).

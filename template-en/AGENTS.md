@@ -14,6 +14,13 @@ A company knowledge base. The source of truth is `.md` files with frontmatter in
 
 Both files are generated and in `.gitignore` — never edit them by hand.
 
+## What goes here (and what does NOT)
+
+This holds ONLY distilled knowledge (.md): decisions, processes, facts, people, lessons.
+It is NOT a project store. Never copy project source code, whole files, or repositories
+here. Projects stay where they are (scattered across disk) — you only SAVE knowledge from
+them into this base. Do the work in the project's own folder; save the knowledge here.
+
 ## Golden rule for the assistant
 
 Don't load the whole base into context. Read `INDEX.md`, use `summary`/`tags` to pick
