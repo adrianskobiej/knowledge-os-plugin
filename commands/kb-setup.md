@@ -31,7 +31,7 @@ Zapytaj wprost: „Czy ktoś w Twojej firmie już korzysta z tej bazy wiedzy? Je
 Zapytaj o imię i nazwisko oraz czym się zajmuje w firmie. Utwórz `ludzie/<handle>.md` ze wzoru `_szablony/osoba.md`, uzupełniając rolę. Wyjaśnij prosto: „dzięki temu asystent będzie dopasowany do Ciebie".
 
 ## Krok 4 — Uporządkuj i zapisz
-Uzupełnij `knowledge.config.json` (nazwa firmy, slug, ewentualnie adres wspólnej bazy). Uruchom `node scripts/reindex.mjs`. Jeśli zakładaliście nową wspólną bazę połączoną z firmą — zrób pierwszy zapis do firmy (`git add/commit/push`), mówiąc po ludzku: „zapisuję bazę w firmie, żeby reszta zespołu miała do niej dostęp".
+Uzupełnij `knowledge.config.json` (nazwa firmy, slug, ewentualnie adres wspólnej bazy). Uruchom `node scripts/reindex.mjs`. Zarejestruj bazę globalnie (po cichu), żeby asystent widział ją w każdym projekcie: `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>`. Jeśli zakładaliście nową wspólną bazę połączoną z firmą — zrób pierwszy zapis do firmy (`git add/commit/push`), mówiąc po ludzku: „zapisuję bazę w firmie, żeby reszta zespołu miała do niej dostęp".
 
 ## Krok 5 — Pokaż efekt i naucz, co dalej
 - Otwórz przeglądarkę bazy: `open ~/knowledge/<slug>/viewer.html`. Powiedz: „to Twoje okno na całą wiedzę firmy".

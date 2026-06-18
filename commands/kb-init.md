@@ -22,6 +22,7 @@ Kroki:
 5. Uzupełnij `knowledge.config.json`: `company.name`, `company.slug=<slug>`, `remote=<url>` jeśli był; dostosuj listę `departments`.
 6. Zapytaj o Twój handle i rolę → utwórz `ludzie/<handle>.md` ze wzoru `_szablony/osoba.md`. Ustaw `external: true`, jeśli wdrażasz jako konsultant zewnętrzny.
 7. Uruchom `node scripts/reindex.mjs` w katalogu bazy.
-8. Pokaż: ścieżkę bazy, liczbę artykułów, polecenie otwarcia `viewer.html` (np. `open ~/knowledge/<slug>/viewer.html`).
+8. Zarejestruj bazę globalnie, żeby agent w KAŻDYM projekcie wiedział, że istnieje: `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>` (zapisuje rejestr i wskaźnik w globalnych instrukcjach narzędzi). Opcjonalnie zainstaluj uniwersalny auto-reindex: `node scripts/reindex.mjs --install-git-hook`.
+9. Pokaż: ścieżkę bazy, liczbę artykułów, polecenie otwarcia `viewer.html` (np. `open ~/knowledge/<slug>/viewer.html`).
 
 Nie commituj automatycznie — od tego jest `/kb-deploy`.

@@ -62,7 +62,8 @@ Either way works:
 2. **With `/kb-*` commands** — run the installer once; it detects your tools and installs adapters:
 
 ```bash
-node install.mjs                 # detect tools, install command adapters
+node install.mjs                 # detect tools, install adapters + register bases
+node install.mjs --base=~/knowledge/mycompany   # also register a specific base
 node install.mjs --dry-run       # preview, writes nothing
 node install.mjs --tools=codex   # only specific tools (claude,codex,antigravity)
 ```
@@ -73,6 +74,8 @@ node install.mjs --tools=codex   # only specific tools (claude,codex,antigravity
 | Codex CLI | `~/.codex/prompts/` | git hook |
 | Antigravity | `~/.gemini/skills/knowledge-os/` | git hook |
 | any other / none | — (use `AGENTS.md`) | git hook |
+
+**Discoverability across every project.** The installer also makes your agent *aware the base exists* — no matter which project you're working in. It writes a registry (`~/.config/knowledge-os/bases.json`) and a small managed block into each tool's **global** instruction file (Claude `~/.claude/CLAUDE.md`, Codex `~/.codex/AGENTS.md`, Antigravity `~/.gemini/AGENTS.md`). From then on, in any repo, the agent knows where your base is, reads it to answer questions, and offers to save durable knowledge into it — using the `/kb-*` skills. Bases under `~/knowledge/*` are auto-detected; add others with `--base=<path>`. Opt out with `--no-awareness`.
 
 Tool-agnostic auto-reindex (replaces the Claude-only hook): in a base, run once
 `node scripts/reindex.mjs --install-git-hook` — reindex then fires on commit / pull / checkout.

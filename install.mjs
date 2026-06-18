@@ -22,6 +22,8 @@ const arg = (k, d) => (process.argv.find(a => a.startsWith(`--${k}=`)) || `--${k
 const DRY = process.argv.includes('--dry-run');
 const LANG = arg('lang', 'both');                       // pl | en | both
 const FORCED = arg('tools', '').split(',').map(s => s.trim()).filter(Boolean);
+const BASES_ARG = arg('base', '').split(',').map(s => s.trim()).filter(Boolean);
+const NO_AWARENESS = process.argv.includes('--no-awareness');
 
 // ── Tool registry ────────────────────────────────────────────────────────────
 // detect: is the tool present on this machine? dir: where its commands/skills live.
@@ -115,6 +117,52 @@ function installAntigravity(dest) {
 
 const EMIT = { claude: installClaude, codex: installCodex, antigravity: installAntigravity };
 
+// ── Global awareness ─────────────────────────────────────────────────────────
+// Adapters give each tool the /kb-* commands (the "how"). Awareness tells every
+// agent, in any project, that a base EXISTS and where (the "where") — by writing a
+// managed block into each tool's GLOBAL instruction file + a registry it can read.
+const REG_DIR = join(HOME, '.config', 'knowledge-os');
+const REG_FILE = join(REG_DIR, 'bases.json');
+const GLOBAL_INSTR = {
+  claude: join(HOME, '.claude', 'CLAUDE.md'),
+  codex: join(HOME, '.codex', 'AGENTS.md'),
+  antigravity: join(HOME, '.gemini', 'AGENTS.md'),
+};
+const MARK_BEGIN = '<!-- knowledge-os:begin (managed by install.mjs — do not edit inside) -->';
+const MARK_END = '<!-- knowledge-os:end -->';
+
+function discoverBases() {
+  if (BASES_ARG.length) return BASES_ARG.map(p => (p.startsWith('~') ? join(HOME, p.slice(1)) : p));
+  const root = join(HOME, 'knowledge');                 // convention: ~/knowledge/<slug>
+  if (!existsSync(root)) return [];
+  return readdirSync(root)
+    .map(d => join(root, d))
+    .filter(p => existsSync(join(p, 'knowledge.config.json')));
+}
+const loadRegistry = () => { try { return JSON.parse(readFileSync(REG_FILE, 'utf8')).bases || []; } catch { return []; } };
+
+function awarenessText(bases) {
+  const list = bases.map(b => `- \`${b}\``).join('\n');
+  return `${MARK_BEGIN}
+## Knowledge base (knowledge-os)
+
+A personal/company knowledge base is available on this machine. Registered base(s):
+${list}
+
+When the user asks about something that may be stored there, consult it: read \`<base>/INDEX.md\` first, then open only the relevant \`.md\` files (follow \`[[slug]]\` links) — never load the whole base. When the user shares durable, reusable knowledge worth keeping (decisions, processes, people, facts), offer to save it into the base and run \`node scripts/reindex.mjs\` there afterwards. Full rules live in \`<base>/AGENTS.md\`.
+${MARK_END}`;
+}
+
+function injectAwareness(file, text) {
+  let cur = existsSync(file) ? readFileSync(file, 'utf8') : '';
+  const re = new RegExp(`${MARK_BEGIN.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\s\\S]*?${MARK_END}`);
+  cur = re.test(cur) ? cur.replace(re, text) : (cur.trimEnd() + (cur ? '\n\n' : '') + text + '\n');
+  if (DRY) { console.log(`   would update ${file}`); return; }
+  mkdirSync(join(file, '..'), { recursive: true });
+  writeFileSync(file, cur);
+  console.log(`   ✓ ${file}`);
+}
+
 // ── Run ──────────────────────────────────────────────────────────────────────
 console.log(`\nknowledge-os installer${DRY ? ' (dry run)' : ''} · languages: ${SETS.map(s => s.lang).join(', ')}\n`);
 const chosen = FORCED.length ? FORCED : Object.keys(TOOLS).filter(t => TOOLS[t].detect());
@@ -133,6 +181,21 @@ for (const t of chosen) {
   EMIT[t](tool.dest);
   summary.push(`  ${tool.label}: ${tool.invoke}`);
   console.log('');
+}
+
+if (!NO_AWARENESS) {
+  const bases = [...new Set([...loadRegistry(), ...discoverBases()])];
+  if (bases.length) {
+    console.log('▸ Global awareness (so every project knows the base exists)');
+    if (DRY) console.log(`   would update ${REG_FILE}`);
+    else { mkdirSync(REG_DIR, { recursive: true }); writeFileSync(REG_FILE, JSON.stringify({ bases }, null, 2)); console.log(`   ✓ ${REG_FILE}`); }
+    const text = awarenessText(bases);
+    for (const t of chosen) if (GLOBAL_INSTR[t]) injectAwareness(GLOBAL_INSTR[t], text);
+    console.log('');
+  } else {
+    console.log('▸ Global awareness: no base found yet.');
+    console.log('   Create one, then re-run, e.g.:  node install.mjs --base=~/knowledge/mycompany\n');
+  }
 }
 
 console.log('Done. How to use:');

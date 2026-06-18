@@ -31,7 +31,7 @@ Ask directly: "Does anyone at your company already use this knowledge base? If s
 Ask for their full name and what they do at the company. Create `people/<handle>.md` from the `_templates/person.md` model, filling in the role. Explain simply: "this way the assistant is tailored to you".
 
 ## Step 4 — Tidy up and save
-Fill in `knowledge.config.json` (company name, slug, optionally the shared base address). Run `node scripts/reindex.mjs`. If you created a new shared base connected to the company — make the first save to the company (`git add/commit/push`), saying in human terms: "I'm saving the base to the company so the rest of the team can access it".
+Fill in `knowledge.config.json` (company name, slug, optionally the shared base address). Run `node scripts/reindex.mjs`. Register the base globally (quietly) so the assistant sees it in every project: `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>`. If you created a new shared base connected to the company — make the first save to the company (`git add/commit/push`), saying in human terms: "I'm saving the base to the company so the rest of the team can access it".
 
 ## Step 5 — Show the result and teach what's next
 - Open the base viewer: `open ~/knowledge/<slug>/viewer.html`. Say: "this is your window into all the company's knowledge".

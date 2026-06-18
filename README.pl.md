@@ -54,13 +54,16 @@ Dwa poziomy używania:
 2. **Z adapterami komend `/kb-*`** w wybranym narzędziu — jeden installer:
 
 ```
-node install.mjs                 # wykryj narzędzia, zainstaluj PL+EN
+node install.mjs                 # wykryj narzędzia, zainstaluj adaptery + zarejestruj bazy
+node install.mjs --base=~/knowledge/firma   # zarejestruj konkretną bazę
 node install.mjs --lang=en       # tylko EN (pl | en | both)
 node install.mjs --tools=codex   # tylko wybrane (claude,codex,antigravity)
 node install.mjs --dry-run       # podgląd, nic nie zapisuje
 ```
 
 Installer kładzie komendy tam, gdzie każde narzędzie ich szuka: Claude → `~/.claude/commands/knowledge-os/`, Codex → `~/.codex/prompts/`, Antigravity → skill w `~/.gemini/skills/knowledge-os/`.
+
+**Wykrywalność w każdym projekcie.** Installer sprawia też, że agent *wie, że baza istnieje* — niezależnie od tego, w którym projekcie pracujesz. Zapisuje rejestr (`~/.config/knowledge-os/bases.json`) i mały zarządzany blok do **globalnego** pliku instrukcji każdego narzędzia (Claude `~/.claude/CLAUDE.md`, Codex `~/.codex/AGENTS.md`, Antigravity `~/.gemini/AGENTS.md`). Od tej chwili, w dowolnym repo, agent wie gdzie jest baza, czyta ją przy pytaniach i sam proponuje zapis trwałej wiedzy — przez skille `/kb-*`. Bazy w `~/knowledge/*` są wykrywane automatycznie; inne dodasz przez `--base=<ścieżka>`. Wyłączenie: `--no-awareness`.
 
 Auto-reindex niezależny od narzędzia (zamiennik Claude-hooka): w katalogu bazy uruchom raz `node scripts/reindex.mjs --install-git-hook` — reindex odpali się po `commit` / `pull` / `checkout`.
 
