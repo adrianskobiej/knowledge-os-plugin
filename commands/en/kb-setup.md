@@ -1,5 +1,5 @@
 ---
-description: Agent-guided install — for non-technical people. The agent does all the work; the user just answers simple questions.
+description: Set up a knowledge base step by step (for non-technical people) — the agent does it all. Use when the user says e.g. "set up my knowledge base", "help me get started with knowledge-os", "install the base".
 allowed-tools: Bash, Read, Write, Edit
 ---
 

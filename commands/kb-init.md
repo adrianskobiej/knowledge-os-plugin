@@ -1,5 +1,5 @@
 ---
-description: Załóż nową bazę wiedzy firmy (stempel z szablonu) lub podłącz istniejące repo.
+description: Załóż nową bazę wiedzy firmy lub podłącz istniejące repo. Użyj, gdy user mówi np. „stwórz/załóż bazę wiedzy", „podłącz repo wiedzy", „nowa baza dla firmy".
 argument-hint: [slug-firmy] [url-repo (opcjonalnie)]
 allowed-tools: Bash, Read, Write, Edit
 ---

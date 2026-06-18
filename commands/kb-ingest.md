@@ -1,5 +1,5 @@
 ---
-description: Skompiluj surowce z raw/ (lub wskazany materiał) w artykuły wiki.
+description: Dodaj/zapisz wiedzę do bazy firmy — z notatki, dokumentu lub surowców z raw/. Użyj, gdy user mówi np. „dodaj to do bazy wiedzy", „zapisz ten wpis", „zapamiętaj to", „dorzuć do bazy". Tworzy artykuł .md z frontmatterem i przebudowuje indeks.
 argument-hint: [ścieżka lub temat (opcjonalnie)]
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 ---

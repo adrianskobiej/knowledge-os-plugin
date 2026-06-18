@@ -1,5 +1,5 @@
 ---
-description: Instalacja prowadzona przez agenta — dla osób nietechnicznych. Agent robi całą robotę, user tylko odpowiada na proste pytania.
+description: Ustaw bazę wiedzy krok po kroku (dla osób nietechnicznych) — agent robi całość. Użyj, gdy user mówi np. „skonfiguruj/ustaw mi bazę wiedzy", „pomóż zacząć z knowledge-os", „zainstaluj bazę".
 allowed-tools: Bash, Read, Write, Edit
 ---
 

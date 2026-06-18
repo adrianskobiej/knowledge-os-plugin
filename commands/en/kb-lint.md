@@ -1,5 +1,5 @@
 ---
-description: Health-check the knowledge base and propose fixes.
+description: Check the health and consistency of the knowledge base. Use when the user says e.g. "check the base", "find errors/dead links/contradictions", "tidy up the knowledge".
 allowed-tools: Bash, Read, Edit
 ---
 

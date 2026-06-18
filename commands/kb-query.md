@@ -1,5 +1,5 @@
 ---
-description: Odpowiedz na pytanie z bazy wiedzy — czytaj INDEX, otwieraj tylko trafne pliki.
+description: Odpowiedz na pytanie korzystając z bazy wiedzy firmy. Użyj, gdy user pyta np. „co wiemy o…", „sprawdź w bazie", „poszukaj w wiedzy firmy", „czy mamy coś o…". Czyta INDEX i tylko trafne artykuły.
 argument-hint: <pytanie>
 allowed-tools: Read, Glob, Grep, Bash
 ---

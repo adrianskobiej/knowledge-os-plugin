@@ -1,5 +1,5 @@
 ---
-description: Save your knowledge to the company repo (reindex + git commit + push).
+description: Save and push your knowledge changes to the company repo. Use when the user says e.g. "publish/send the changes", "save the base for the team", "commit and push the knowledge".
 argument-hint: [change description (optional)]
 allowed-tools: Bash, Read
 ---

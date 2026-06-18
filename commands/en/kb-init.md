@@ -1,5 +1,5 @@
 ---
-description: Create a new company knowledge base (stamp from a template) or connect an existing repo.
+description: Create a new company knowledge base or connect an existing repo. Use when the user says e.g. "create/set up a knowledge base", "connect a knowledge repo", "new base for the company".
 argument-hint: [company-slug] [repo-url (optional)]
 allowed-tools: Bash, Read, Write, Edit
 ---

@@ -1,5 +1,5 @@
 ---
-description: Answer a question from the knowledge base — read INDEX, open only the relevant files.
+description: Answer a question using the company knowledge base. Use when the user asks e.g. "what do we know about…", "check the base", "look it up in our knowledge", "do we have anything on…". Reads INDEX and only the relevant articles.
 argument-hint: <question>
 allowed-tools: Read, Glob, Grep, Bash
 ---

@@ -1,5 +1,5 @@
 ---
-description: Zapisz swoją wiedzę do repo firmy (reindex + git commit + push).
+description: Zapisz i wypchnij swoje zmiany wiedzy do repo firmy. Użyj, gdy user mówi np. „wyślij/opublikuj zmiany", „zapisz bazę dla zespołu", „zacommituj i wypchnij wiedzę".
 argument-hint: [opis zmian (opcjonalnie)]
 allowed-tools: Bash, Read
 ---

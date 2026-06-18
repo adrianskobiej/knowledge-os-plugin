@@ -1,5 +1,5 @@
 ---
-description: Health-check bazy wiedzy i propozycje poprawek.
+description: Sprawdź zdrowie i spójność bazy wiedzy. Użyj, gdy user mówi np. „sprawdź bazę", „znajdź błędy/martwe linki/sprzeczności", „zrób porządek w wiedzy".
 allowed-tools: Bash, Read, Edit
 ---
 

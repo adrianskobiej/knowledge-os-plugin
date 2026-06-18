@@ -1,5 +1,5 @@
 ---
-description: Compile raw material from raw/ (or a given source) into wiki articles.
+description: Add/save knowledge to the company base — from a note, document, or raw/ material. Use when the user says e.g. "add this to the knowledge base", "save this entry", "remember this", "capture this". Creates a frontmatter .md article and rebuilds the index.
 argument-hint: [path or topic (optional)]
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 ---

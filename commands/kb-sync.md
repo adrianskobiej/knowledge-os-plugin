@@ -1,5 +1,5 @@
 ---
-description: Pobierz najnowszą wiedzę firmy (git pull) i przebuduj indeksy.
+description: Pobierz najnowszą wiedzę firmy i przebuduj indeksy. Użyj, gdy user mówi np. „zaktualizuj bazę", „pobierz zmiany od zespołu", „zsynchronizuj wiedzę".
 argument-hint: [slug-firmy (opcjonalnie)]
 allowed-tools: Bash, Read
 ---

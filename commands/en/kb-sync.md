@@ -1,5 +1,5 @@
 ---
-description: Pull the latest company knowledge (git pull) and rebuild the indexes.
+description: Pull the latest company knowledge and rebuild the indexes. Use when the user says e.g. "update the base", "get the team's changes", "sync the knowledge".
 argument-hint: [company-slug (optional)]
 allowed-tools: Bash, Read
 ---
