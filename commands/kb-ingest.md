@@ -1,20 +1,20 @@
 ---
-description: Dodaj/zapisz wiedzę do bazy firmy — z notatki, dokumentu lub surowców z raw/. Użyj, gdy user mówi np. „dodaj to do bazy wiedzy", „zapisz ten wpis", „zapamiętaj to", „dorzuć do bazy". Tworzy artykuł .md z frontmatterem i przebudowuje indeks.
-argument-hint: [ścieżka lub temat (opcjonalnie)]
+description: Add/save knowledge to the company base — from a note, document, or raw/ material. Use when the user says e.g. "add this to the knowledge base", "save this entry", "remember this", "capture this". Creates a frontmatter .md article and rebuilds the index.
+argument-hint: [path or topic (optional)]
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 ---
 
-# /kb-ingest — kompilacja surowców do wiki
+# /kb-ingest — compile raw material into the wiki
 
-Materiał: `$ARGUMENTS` (jeśli pusto — przejrzyj katalog `raw/`).
+Material: `$ARGUMENTS` (if empty — review the `raw/` directory).
 
-1. Przeczytaj surowiec(e) i zrozum treść.
-2. Przeczytaj `INDEX.md`, żeby wiedzieć, co już jest i jakich slugów używać do linków.
-3. Przeczytaj `BRIEF.md` docelowego folderu (jeśli istnieje) — cel, odbiorca, hierarchia źródeł. Dopasuj się do niego.
-4. Zdecyduj o strukturze: jeden czy kilka artykułów i w którym dziale (`dzialy/`, `projekty/`, `ludzie/`, `koncepty/`).
-5. Dla każdego artykułu napisz `.md` z pełnym frontmatterem (wzór w `_szablony/`). Najważniejsze: trafne `summary` w jednym zdaniu + `tags`. Trzymaj zasadę: jeden plik = jeden temat.
-6. Proweniencja: gdy znasz pochodzenie, ustaw `source` i `authority` (`primary`/`secondary`/`derived`) — zgodnie z hierarchią z briefu.
-7. Linkuj liberalnie do istniejących artykułów przez `[[slug]]`.
-8. Jeśli surowiec zawiera dosłowne cytaty do ochrony (zapisy umów, deklaracje klienta) — dopisz je do `quotes.json` i uruchom `node scripts/reindex.mjs --bless-quotes`.
-9. Uruchom `node scripts/reindex.mjs`, pokaż wynik + health-check.
-10. Zaproponuj przeniesienie/archiwizację przerobionego surowca z `raw/`.
+1. Read the raw source(s) and understand the content.
+2. Read `INDEX.md` to know what already exists and which slugs to use for links.
+3. Read the target folder's `BRIEF.md` (if it exists) — goal, audience, source hierarchy. Align with it.
+4. Decide on structure: one or several articles, and in which area (`departments/`, `projects/`, `people/`, `concepts/`).
+5. For each article write a `.md` with full frontmatter (model in `_templates/`). Most important: an accurate one-sentence `summary` + `tags`. Keep the rule: one file = one topic.
+6. Provenance: when you know the origin, set `source` and `authority` (`primary`/`secondary`/`derived`) — per the brief's hierarchy.
+7. Link liberally to existing articles via `[[slug]]`.
+8. If the raw material contains verbatim quotes to protect (contract clauses, client statements) — add them to `quotes.json` and run `node scripts/reindex.mjs --bless-quotes`.
+9. Run `node scripts/reindex.mjs`, show the result + health-check.
+10. Propose moving/archiving the processed raw material from `raw/`.

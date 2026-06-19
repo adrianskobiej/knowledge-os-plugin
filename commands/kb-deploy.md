@@ -1,15 +1,15 @@
 ---
-description: Zapisz i wypchnij swoje zmiany wiedzy do repo firmy. Użyj, gdy user mówi np. „wyślij/opublikuj zmiany", „zapisz bazę dla zespołu", „zacommituj i wypchnij wiedzę".
-argument-hint: [opis zmian (opcjonalnie)]
+description: Save and push your knowledge changes to the company repo. Use when the user says e.g. "publish/send the changes", "save the base for the team", "commit and push the knowledge".
+argument-hint: [change description (optional)]
 allowed-tools: Bash, Read
 ---
 
-# /kb-deploy — wdrożenie zmian do firmy
+# /kb-deploy — deploy changes to the company
 
-1. Ustal katalog bazy (najbliższy przodek z `knowledge.config.json`).
-2. `node scripts/reindex.mjs --lint`. Jeśli są poważne ostrzeżenia (martwe linki, braki `summary`) — pokaż je i zapytaj, czy mimo to kontynuować.
-3. `git add -A` (wygenerowane `INDEX.md` i `kb-data.js` są w .gitignore — nie trafią do commita).
-4. `git commit` z opisem z argumentu lub zwięzłym, wygenerowanym z diffa. Zakończ wiadomość commita stopką:
+1. Determine the base directory (nearest ancestor with `knowledge.config.json`).
+2. `node scripts/reindex.mjs --lint`. If there are serious warnings (dead links, missing `summary`) — show them and ask whether to continue anyway.
+3. `git add -A` (the generated `INDEX.md` and `kb-data.js` are in .gitignore — they won't enter the commit).
+4. `git commit` with the description from the argument or a concise one generated from the diff. End the commit message with the footer:
    `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
-5. `git push`. Jeśli brak remote — poinformuj, że baza jest lokalna, i pokaż jak dodać remote (`git remote add origin <url>`).
-6. Zaraportuj, co zostało wypchnięte.
+5. `git push`. If there is no remote — explain that the base is local, and show how to add a remote (`git remote add origin <url>`).
+6. Report what was pushed.

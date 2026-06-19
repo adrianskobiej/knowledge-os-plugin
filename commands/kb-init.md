@@ -1,28 +1,28 @@
 ---
-description: Załóż nową bazę wiedzy firmy lub podłącz istniejące repo. Użyj, gdy user mówi np. „stwórz/załóż bazę wiedzy", „podłącz repo wiedzy", „nowa baza dla firmy".
-argument-hint: [slug-firmy] [url-repo (opcjonalnie)]
+description: Create a new company knowledge base or connect an existing repo. Use when the user says e.g. "create/set up a knowledge base", "connect a knowledge repo", "new base for the company".
+argument-hint: [company-slug] [repo-url (optional)]
 allowed-tools: Bash, Read, Write, Edit
 ---
 
-# /kb-init — załóż lub podłącz bazę wiedzy
+# /kb-init — create or connect a knowledge base
 
-Argumenty: `$ARGUMENTS` (np. `acme` albo `acme git@github.com:acme/knowledge.git`)
+Arguments: `$ARGUMENTS` (e.g. `acme` or `acme git@github.com:acme/knowledge.git`)
 
-Cel: przygotować niezależną bazę wiedzy firmy w `~/knowledge/<slug>`. Każda firma = osobne repo.
+Goal: prepare an independent company knowledge base in `~/knowledge/<slug>`. Each company = a separate repo.
 
-Kroki:
-1. Ustal `slug` firmy (1. argument; jeśli brak — zapytaj). Katalog docelowy: `~/knowledge/<slug>`.
-2. Szablon jest dołączony do pluginu w `${CLAUDE_PLUGIN_ROOT}/template/`. Jeśli zmienna jest pusta (uruchomienie z klona, nie z instalacji), użyj `template/` w repo `knowledge-os`.
-3. Jeśli podano URL repo (2. argument):
+Steps:
+1. Determine the company `slug` (1st argument; if missing — ask). Target directory: `~/knowledge/<slug>`.
+2. The template ships with the plugin in `${CLAUDE_PLUGIN_ROOT}/template/`. If the variable is empty (running from a clone, not an install), use `template/` in the `knowledge-os` repo.
+3. If a repo URL is given (2nd argument):
    - `git clone <url> ~/knowledge/<slug>`.
-   - Jeśli repo jest puste lub bez `knowledge.config.json` → ostempluj szablonem (krok 4).
-   - Jeśli ma już bazę → pomiń stemplowanie, przejdź do kroku 6 (podłączenie do istniejącej).
-   Bez URL: utwórz katalog i ostempluj szablonem.
-4. Stempel: skopiuj zawartość szablonu do katalogu bazy. Nie kopiuj wygenerowanych `INDEX.md` ani `kb-data.js`.
-5. Uzupełnij `knowledge.config.json`: `company.name`, `company.slug=<slug>`, `remote=<url>` jeśli był; dostosuj listę `departments`.
-6. Zapytaj o Twój handle i rolę → utwórz `ludzie/<handle>.md` ze wzoru `_szablony/osoba.md`. Ustaw `external: true`, jeśli wdrażasz jako konsultant zewnętrzny.
-7. Uruchom `node scripts/reindex.mjs` w katalogu bazy.
-8. Zarejestruj bazę globalnie, żeby agent w KAŻDYM projekcie wiedział, że istnieje: `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>` (zapisuje rejestr i wskaźnik w globalnych instrukcjach narzędzi). Opcjonalnie zainstaluj uniwersalny auto-reindex: `node scripts/reindex.mjs --install-git-hook`.
-9. Pokaż: ścieżkę bazy, liczbę artykułów, polecenie otwarcia `viewer.html` (np. `open ~/knowledge/<slug>/viewer.html`).
+   - If the repo is empty or has no `knowledge.config.json` → stamp it with the template (step 4).
+   - If it already has a base → skip stamping, go to step 6 (connect to existing).
+   Without a URL: create the directory and stamp it with the template.
+4. Stamp: copy the template contents into the base directory. Do not copy the generated `INDEX.md` or `kb-data.js`.
+5. Fill in `knowledge.config.json`: `company.name`, `company.slug=<slug>`, `remote=<url>` if any; adjust the `departments` list.
+6. Ask for your handle and role → create `people/<handle>.md` from the `_templates/person.md` model. Set `external: true` if you are deploying as an external consultant.
+7. Run `node scripts/reindex.mjs` in the base directory.
+8. Register the base globally so the agent in EVERY project knows it exists: `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>` (writes a registry + a pointer into each tool's global instructions). Optionally install the universal auto-reindex: `node scripts/reindex.mjs --install-git-hook`.
+9. Show: the base path, the article count, the command to open `viewer.html` (e.g. `open ~/knowledge/<slug>/viewer.html`).
 
-Nie commituj automatycznie — od tego jest `/kb-deploy`.
+Do not commit automatically — that is what `/kb-deploy` is for.

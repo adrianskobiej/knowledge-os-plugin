@@ -4,8 +4,6 @@
 
 Plain `.md` files are the source of truth. A zero-dependency script compiles them into a lightweight index for LLMs and a standalone, offline HTML viewer for humans. Works with Claude Code, Codex, Antigravity — or no agent at all.
 
-🇵🇱 Polish version: [README.pl.md](README.pl.md)
-
 ---
 
 ## The problem
@@ -48,8 +46,8 @@ Each company = its own private git repo. This repo is the machinery you stamp ne
 git clone https://github.com/<you>/knowledge-os-plugin.git ~/knowledge-os
 cd ~/knowledge-os
 
-# create a new knowledge base from the English template
-cp -R template-en ~/knowledge/mycompany
+# create a new knowledge base from the template
+cp -R template ~/knowledge/mycompany
 cd ~/knowledge/mycompany
 git init
 node scripts/reindex.mjs            # build INDEX.md + kb-data.js
@@ -84,9 +82,9 @@ Tool-agnostic auto-reindex (replaces the Claude-only hook): in a base, run once
 
 ## Repository layout
 
-- `template/` (PL) · `template-en/` (EN) — knowledge-base scaffolds, each with its own `AGENTS.md`, `scripts/reindex.mjs`, `viewer.html`.
-- `commands/` · `commands/en/` — slash-command sources (one source of truth `install.mjs` adapts per tool).
-- `install.mjs` — cross-platform installer.
+- `template/` — knowledge-base scaffold (`AGENTS.md`, `scripts/reindex.mjs`, `viewer.html`, empty content dirs + `_templates/`).
+- `commands/` — slash-command sources (one source of truth `install.mjs` adapts per tool).
+- `install.mjs` — cross-platform installer (command adapters + global awareness).
 - `.claude-plugin/` + `hooks/` — Claude Code plugin + PostToolUse auto-reindex.
 
 ## Security

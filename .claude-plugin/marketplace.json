@@ -5,7 +5,7 @@
     {
       "name": "knowledge-os",
       "source": "./",
-      "description": "Firmowy system wiedzy / Company knowledge system: Markdown + samodzielny przeglądarkowy viewer, komendy /kb-* (PL + en), auto-reindex."
+      "description": "Company knowledge system: Markdown + a standalone offline HTML viewer, /kb-* commands, auto-reindex. Tool-agnostic (Claude Code, Codex, Antigravity)."
     }
   ]
 }

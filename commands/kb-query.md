@@ -1,16 +1,16 @@
 ---
-description: Odpowiedz na pytanie korzystając z bazy wiedzy firmy. Użyj, gdy user pyta np. „co wiemy o…", „sprawdź w bazie", „poszukaj w wiedzy firmy", „czy mamy coś o…". Czyta INDEX i tylko trafne artykuły.
-argument-hint: <pytanie>
+description: Answer a question using the company knowledge base. Use when the user asks e.g. "what do we know about…", "check the base", "look it up in our knowledge", "do we have anything on…". Reads INDEX and only the relevant articles.
+argument-hint: <question>
 allowed-tools: Read, Glob, Grep, Bash
 ---
 
-# /kb-query — pytanie do bazy
+# /kb-query — ask the base
 
-Pytanie: `$ARGUMENTS`
+Question: `$ARGUMENTS`
 
-1. Przeczytaj `INDEX.md`. Nie ładuj wszystkich artykułów — to psuje cały sens systemu.
-2. Na podstawie `summary` i `tags` wytypuj 1–5 trafnych artykułów i otwórz tylko je. Jeśli dotyczą folderu z `BRIEF.md` — zerknij też do briefu po kontekst i hierarchię źródeł.
-3. Jeśli trzeba pogłębić — idź po linkach `[[…]]` do powiązanych.
-4. Odpowiedz zwięźle, podając źródła jako linki do plików (np. `dzialy/sprzedaz/proces-sprzedazy.md`). Gdy artykuły mają `authority`, waż je — `primary` przed `secondary`/`derived` — i zaznacz, jeśli opierasz się na słabszym źródle.
-5. Jeśli widzisz sprzeczność między artykułami — zasygnalizuj ją (nie zgaduj), ewentualnie odeślij do `/kb-lint`.
-6. Jeśli baza nie ma odpowiedzi — powiedz to wprost i zaproponuj `/kb-ingest`.
+1. Read `INDEX.md`. Don't load every article — that defeats the whole point of the system.
+2. Based on `summary` and `tags`, pick 1–5 relevant articles and open only those. If they belong to a folder with a `BRIEF.md` — also glance at the brief for context and source hierarchy.
+3. If you need to go deeper — follow the `[[…]]` links to related articles.
+4. Answer concisely, citing sources as file links (e.g. `departments/sales/sales-process.md`). When articles have an `authority`, weigh them — `primary` over `secondary`/`derived` — and flag it if you're relying on a weaker source.
+5. If you see a contradiction between articles — surface it (don't guess), and optionally point to `/kb-lint`.
+6. If the base has no answer — say so plainly and suggest `/kb-ingest`.

@@ -5,12 +5,12 @@ designed to be **tool-agnostic** — usable from Claude Code, Codex, Antigravity
 
 ## Layout
 
-- `template/` (PL) and `template-en/` (EN) — the knowledge-base scaffolds stamped into a new
-  base. Each carries its own `AGENTS.md`, `scripts/reindex.mjs`, `viewer.html`.
-- `commands/` (Claude PL) and `commands/en/` (Claude EN) — slash-command sources (one source
-  of truth that `install.mjs` adapts to other tools).
-- `install.mjs` — cross-platform installer; adapts the commands into Claude / Codex /
-  Antigravity locations. Run `node install.mjs --dry-run` to preview.
+- `template/` — the knowledge-base scaffold stamped into a new base. Carries its own
+  `AGENTS.md`, `scripts/reindex.mjs`, `viewer.html`, empty content dirs + `_templates/`.
+- `commands/` — slash-command sources (one source of truth that `install.mjs` adapts to
+  Claude / Codex / Antigravity).
+- `install.mjs` — cross-platform installer; adapts commands + sets up global awareness.
+  Run `node install.mjs --dry-run` to preview.
 - `hooks/` + `scripts/kb-autoindex.mjs` — Claude-only PostToolUse auto-reindex.
 - `.claude-plugin/` — Claude Code plugin + marketplace manifest.
 
@@ -18,9 +18,9 @@ designed to be **tool-agnostic** — usable from Claude Code, Codex, Antigravity
 
 - **Engine portability:** `reindex.mjs` and `viewer.html` stay zero-dependency and never
   assume a specific agent. Anything Claude-specific lives in `commands/`, `hooks/`,
-  `.claude-plugin/` — not in the engine or templates.
-- **PL/EN parity:** a change in one template/command set should be mirrored in the other.
-  PL dirs: `dzialy/projekty/ludzie/koncepty/_szablony`; EN: `departments/projects/people/concepts/_templates`.
+  `.claude-plugin/` — not in the engine or template.
+- **English-only:** everything user-facing is English. Content dirs:
+  `departments/projects/people/concepts/_templates`.
 - **Security:** the Markdown→HTML renderer escapes `& < > " '` and only allows
   `http/https/mailto`/anchor/relative URLs (drops `javascript:`/`data:` to `#`). Don't
   regress this — `viewer.html` injects rendered HTML via `innerHTML`.
@@ -29,7 +29,6 @@ designed to be **tool-agnostic** — usable from Claude Code, Codex, Antigravity
 ## Quick checks
 
 ```
-cd template    && node scripts/reindex.mjs --lint
-cd template-en && node scripts/reindex.mjs --lint
+cd template && node scripts/reindex.mjs --lint
 node install.mjs --dry-run
 ```

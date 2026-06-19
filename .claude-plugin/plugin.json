@@ -1,7 +1,7 @@
 {
   "name": "knowledge-os",
   "version": "0.1.0",
-  "description": "Firmowy system wiedzy / Company knowledge system: Markdown jako źródło prawdy + samodzielny przeglądarkowy viewer. Komendy /kb-* (PL) oraz /kb-* (en) do zakładania, synchronizacji, kompilacji, odpytywania i wdrażania bazy. Auto-reindex po każdej zmianie.",
+  "description": "Company knowledge system: Markdown as the source of truth + a standalone offline HTML viewer. /kb-* commands to create, sync, ingest, query and deploy a knowledge base. Auto-reindex after every change. Tool-agnostic (Claude Code, Codex, Antigravity).",
   "author": { "name": "Adrian Skobiej" },
   "keywords": ["knowledge-base", "wiki", "markdown", "second-brain", "company-knowledge"]
 }

@@ -1,4 +1,0 @@
-{
-  "_description": "Protected quotes (enforced by code). id = identifier, text = VERBATIM quote, in = (optional) file in which it must appear. After adding or intentionally changing one, run: node scripts/reindex.mjs --bless-quotes",
-  "quotes": []
-}

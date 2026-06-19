@@ -1,61 +1,61 @@
-# AGENTS.md — baza wiedzy (knowledge-os)
+# AGENTS.md — knowledge base (knowledge-os)
 
-> Ten plik czyta każdy asystent AI (Claude Code, Codex, Antigravity, Cursor…), gdy
-> otworzy ten katalog. Opisuje, czym jest ta baza i jak z nią pracować — bez żadnej
-> instalacji specyficznej dla narzędzia. Komendy `/kb-*` to tylko wygodne skróty na
-> procedury opisane niżej; jeśli Twoje narzędzie ich nie ma, wykonaj kroki ręcznie.
+> Every AI assistant (Claude Code, Codex, Antigravity, Cursor…) reads this file when it
+> opens this directory. It describes what this base is and how to work with it — with no
+> tool-specific install. The `/kb-*` commands are just convenient shortcuts for the
+> procedures below; if your tool doesn't have them, run the steps by hand.
 
-## Co to jest
+## What this is
 
-Firmowa baza wiedzy. Źródłem prawdy są pliki `.md` z frontmatterem w katalogach:
-`dzialy/`, `projekty/`, `ludzie/`, `koncepty/`. Z nich generowane są:
-- `INDEX.md` — lekki indeks (jedna linia/artykuł). **Czytaj go NAJPIERW.**
-- `kb-data.js` — dane dla `viewer.html` (czytelnik dla człowieka, offline).
+A company knowledge base. The source of truth is `.md` files with frontmatter in:
+`departments/`, `projects/`, `people/`, `concepts/`. From them we generate:
+- `INDEX.md` — a lightweight index (one line/article). **Read it FIRST.**
+- `kb-data.js` — data for `viewer.html` (the human-facing reader, offline).
 
-Oba pliki są generowane i w `.gitignore` — nigdy ich nie edytuj ręcznie.
+Both files are generated and in `.gitignore` — never edit them by hand.
 
-## Co tu trafia (a co NIE)
+## What goes here (and what does NOT)
 
-Tu trafia WYŁĄCZNIE wydestylowana wiedza (.md): decyzje, procesy, fakty, ludzie, wnioski.
-To NIE jest magazyn projektów. Nigdy nie kopiuj tutaj kodu, całych plików ani repozytoriów
-projektów. Projekty zostają tam, gdzie są (rozsiane po dysku) — w bazie tylko ZAPISUJESZ
-z nich wiedzę. Pracę prowadzisz w katalogu projektu, a wiedzę zapisujesz do tej bazy.
+This holds ONLY distilled knowledge (.md): decisions, processes, facts, people, lessons.
+It is NOT a project store. Never copy project source code, whole files, or repositories
+here. Projects stay where they are (scattered across disk) — you only SAVE knowledge from
+them into this base. Do the work in the project's own folder; save the knowledge here.
 
-## Złota zasada dla asystenta
+## Golden rule for the assistant
 
-Nie ładuj całej bazy do kontekstu. Przeczytaj `INDEX.md`, na podstawie `summary`/`tags`
-wytypuj 1–5 trafnych artykułów i otwórz tylko je; pogłębiaj idąc po linkach `[[slug]]`.
+Don't load the whole base into context. Read `INDEX.md`, use `summary`/`tags` to pick
+1–5 relevant articles and open only those; go deeper by following `[[slug]]` links.
 
-## Workflow (procedury = komendy /kb-*)
+## Workflow (procedures = /kb-* commands)
 
-- **Zapytanie** (`/kb-query <pytanie>`): przeczytaj `INDEX.md` → otwórz trafne artykuły →
-  odpowiedz zwięźle, cytując ścieżki plików. Waż `authority` (`primary` > `secondary` >
-  `derived`). Sprzeczności sygnalizuj, nie rozstrzygaj.
-- **Dodanie wiedzy** (`/kb-ingest [ścieżka|temat]`): przeczytaj surowiec z `raw/`, sprawdź
-  `INDEX.md` i `BRIEF.md` docelowego folderu, napisz artykuł(y) `.md` z pełnym frontmatterem
-  (wzory w `_szablony/`), linkuj przez `[[slug]]`, na końcu uruchom reindex.
-- **Health-check** (`/kb-lint`): `node scripts/reindex.mjs --lint` — braki, martwe linki,
-  sieroty, duplikaty, sygnały chronionych cytatów.
-- **Synchronizacja** (`/kb-sync`): `git pull --ff-only` → reindex.
-- **Wdrożenie** (`/kb-deploy`): reindex --lint → `git add -A` → commit → push.
+- **Query** (`/kb-query <question>`): read `INDEX.md` → open the relevant articles →
+  answer concisely, citing file paths. Weigh `authority` (`primary` > `secondary` >
+  `derived`). Surface contradictions, don't resolve them.
+- **Add knowledge** (`/kb-ingest [path|topic]`): read the raw material from `raw/`, check
+  `INDEX.md` and the target folder's `BRIEF.md`, write article(s) `.md` with full
+  frontmatter (models in `_templates/`), link via `[[slug]]`, then run reindex.
+- **Health-check** (`/kb-lint`): `node scripts/reindex.mjs --lint` — missing fields, dead
+  links, orphans, duplicates, protected-quote signals.
+- **Sync** (`/kb-sync`): `git pull --ff-only` → reindex.
+- **Deploy** (`/kb-deploy`): reindex --lint → `git add -A` → commit → push.
 
-## Komendy silnika (działają w każdym narzędziu)
+## Engine commands (work in every tool)
 
 ```
-node scripts/reindex.mjs                 # przebuduj INDEX.md + kb-data.js
-node scripts/reindex.mjs --lint          # tylko health-check, bez zapisu
-node scripts/reindex.mjs --bless-quotes  # zatwierdź chronione cytaty (quotes.json)
-node scripts/reindex.mjs --install-git-hook  # uniwersalny auto-reindex (commit/pull/checkout)
+node scripts/reindex.mjs                 # rebuild INDEX.md + kb-data.js
+node scripts/reindex.mjs --lint          # health-check only, no writes
+node scripts/reindex.mjs --bless-quotes  # approve protected quotes (quotes.json)
+node scripts/reindex.mjs --install-git-hook  # universal auto-reindex (commit/pull/checkout)
 ```
 
-Po każdej zmianie artykułów `.md` uruchom `node scripts/reindex.mjs`, żeby `INDEX.md`
-i viewer były świeże. (Claude robi to automatycznie hookiem; inne narzędzia — przez
-git-hooki z `--install-git-hook` albo ręcznie.)
+After every change to `.md` articles, run `node scripts/reindex.mjs` so `INDEX.md` and the
+viewer stay fresh. (Claude does this automatically via a hook; other tools — via the git
+hooks from `--install-git-hook`, or manually.)
 
-## Reguły pisania artykułów
+## Article-writing rules
 
-1. Frontmatter obowiązkowy: `title`, `slug`, `category`, `summary`, `status`. Wzór z `_szablony/`.
-2. `summary` = jedno konkretne zdanie (to jedyne, co asystent widzi w indeksie).
-3. Jeden plik = jeden temat. Linkuj liberalnie przez `[[slug]]`.
-4. Proweniencja (opcjonalnie): `source` + `authority` zgodnie z `BRIEF.md` folderu.
-5. Otwórz `viewer.html` w przeglądarce, by przeglądać bazę jak człowiek.
+1. Required frontmatter: `title`, `slug`, `category`, `summary`, `status`. Model in `_templates/`.
+2. `summary` = one concrete sentence (the only thing the assistant sees in the index).
+3. One file = one topic. Link liberally via `[[slug]]`.
+4. Provenance (optional): `source` + `authority` per the folder's `BRIEF.md`.
+5. Open `viewer.html` in a browser to browse the base like a human.

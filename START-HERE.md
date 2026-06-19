@@ -18,7 +18,7 @@ You don't need to be technical. The assistant does all the work for you. Your jo
 Just type:
 
 ```
-/kb-setup (en)
+/kb-setup
 ```
 
 That's it. From here the **assistant takes the wheel**:
@@ -33,8 +33,8 @@ You just answer simple questions (e.g. "what's your name?", "does anyone at the 
 
 ### What next?
 
-- **Want to look something up?** → `/kb-query (en) your question`
-- **Have a note/document to save?** → paste it and ask to add it (`/kb-ingest (en)`)
-- **Want the latest knowledge from the team?** → `/kb-sync (en)`
+- **Want to look something up?** → `/kb-query your question`
+- **Have a note/document to save?** → paste it and ask to add it (`/kb-ingest`)
+- **Want the latest knowledge from the team?** → `/kb-sync`
 
 Full project description: see `README.md`.

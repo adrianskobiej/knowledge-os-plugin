@@ -1,18 +1,18 @@
 ---
-description: Sprawdź zdrowie i spójność bazy wiedzy. Użyj, gdy user mówi np. „sprawdź bazę", „znajdź błędy/martwe linki/sprzeczności", „zrób porządek w wiedzy".
+description: Check the health and consistency of the knowledge base. Use when the user says e.g. "check the base", "find errors/dead links/contradictions", "tidy up the knowledge".
 allowed-tools: Bash, Read, Edit
 ---
 
-# /kb-lint — kontrola spójności (+ data room)
+# /kb-lint — consistency check (+ data room)
 
-## A. Lint strukturalny (kod)
-1. Uruchom `node scripts/reindex.mjs --lint` w katalogu bazy.
-2. Zinterpretuj ostrzeżenia: braki frontmatter/`summary`, martwe linki `[[…]]`, sieroty, zduplikowane slugi, błędne `authority`, oraz 🔒 sygnały o chronionych cytatach (zmiana od ostatniego `--bless-quotes`, parafraza, brak pliku).
-3. Zaproponuj konkretne poprawki, a po akceptacji wykonaj je. Dla cytatów: jeśli zmiana była świadoma → `node scripts/reindex.mjs --bless-quotes`; jeśli to parafraza w artykule → przywróć dosłowne brzmienie.
+## A. Structural lint (code)
+1. Run `node scripts/reindex.mjs --lint` in the base directory.
+2. Interpret the warnings: missing frontmatter/`summary`, dead `[[…]]` links, orphans, duplicate slugs, invalid `authority`, and 🔒 signals about protected quotes (changed since last `--bless-quotes`, paraphrase, missing file).
+3. Propose concrete fixes, and apply them once approved. For quotes: if the change was intentional → `node scripts/reindex.mjs --bless-quotes`; if it's a paraphrase in an article → restore the verbatim wording.
 
-## B. Pass „data room" (LLM — zbierz i oznacz, nie rozstrzygaj)
-4. CONFLICTS — przeczytaj `INDEX.md` i briefy, otwórz powiązane artykuły i znajdź sprzeczności (np. dwie różne ceny, sprzeczne ustalenia). Zapisz je do `CONFLICTS.md` w korzeniu bazy: każda pozycja = na czym polega sprzeczność + które artykuły + (jeśli jest) `authority`/`source` każdego. Nie rozstrzygaj — decyzja należy do człowieka.
-5. MISSING — dla folderów z `BRIEF.md` porównaj stan wiedzy z celem briefu i wypisz luki do `MISSING.md` w korzeniu bazy.
-6. Na koniec przebuduj indeks: `node scripts/reindex.mjs`. Zaraportuj liczbę sprzeczności i luk.
+## B. "Data room" pass (LLM — collect and flag, don't decide)
+4. CONFLICTS — read `INDEX.md` and the briefs, open related articles and find contradictions (e.g. two different prices, conflicting agreements). Write them to `CONFLICTS.md` in the base root: each item = what the contradiction is + which articles + (if any) the `authority`/`source` of each. Don't resolve it — the decision is the human's.
+5. MISSING — for folders with a `BRIEF.md`, compare the state of knowledge against the brief's goal and list the gaps in `MISSING.md` in the base root.
+6. Finally, rebuild the index: `node scripts/reindex.mjs`. Report the number of conflicts and gaps.
 
-> `CONFLICTS.md` i `MISSING.md` to migawki decyzyjne — regenerowane na żądanie, współdzielone z zespołem.
+> `CONFLICTS.md` and `MISSING.md` are decision snapshots — regenerated on demand, shared with the team.

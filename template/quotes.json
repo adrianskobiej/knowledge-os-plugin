@@ -1,4 +1,4 @@
 {
-  "_opis": "Chronione cytaty (wymuszane kodem). id = identyfikator, text = DOSŁOWNY cytat, in = (opcjonalnie) plik, w którym musi występować. Po dodaniu lub świadomej zmianie uruchom: node scripts/reindex.mjs --bless-quotes",
+  "_description": "Protected quotes (enforced by code). id = identifier, text = VERBATIM quote, in = (optional) file in which it must appear. After adding or intentionally changing one, run: node scripts/reindex.mjs --bless-quotes",
   "quotes": []
 }

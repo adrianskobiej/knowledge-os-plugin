@@ -12,12 +12,6 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8099", "--directory", "template"],
       "port": 8099
-    },
-    {
-      "name": "kb-viewer-en",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8097", "--directory", "template-en"],
-      "port": 8097
     }
   ]
 }

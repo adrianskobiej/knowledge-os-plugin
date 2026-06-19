@@ -1,11 +1,11 @@
 {
   "company": {
-    "name": "Przykładowa Firma",
-    "slug": "przyklad",
-    "language": "pl"
+    "name": "Example Company",
+    "slug": "example",
+    "language": "en"
   },
   "remote": "",
-  "departments": ["sprzedaz", "marketing", "produkt", "operacje"],
+  "departments": ["sales", "marketing", "product", "operations"],
   "conventions": {
     "frontmatterRequired": ["title", "slug", "category", "summary", "status"],
     "statuses": ["draft", "stable"]

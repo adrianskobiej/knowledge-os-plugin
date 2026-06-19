@@ -4,9 +4,10 @@
 // cross-platform (macOS / Linux / Windows).
 //
 // Usage:
-//   node install.mjs                     auto-detect tools, install PL + EN
+//   node install.mjs                     auto-detect tools, install adapters + register bases
 //   node install.mjs --tools=codex,claude   only these tools (comma list)
-//   node install.mjs --lang=en           only one language (pl | en | both; default both)
+//   node install.mjs --base=~/knowledge/x   register a specific base for global awareness
+//   node install.mjs --no-awareness      install commands only, skip global awareness
 //   node install.mjs --dry-run           print what would happen, write nothing
 //
 // Engine + viewer + AGENTS.md are already tool-agnostic — this only installs the
@@ -20,7 +21,6 @@ const HERE = new URL('.', import.meta.url).pathname;
 const HOME = homedir();
 const arg = (k, d) => (process.argv.find(a => a.startsWith(`--${k}=`)) || `--${k}=${d}`).split('=').slice(1).join('=');
 const DRY = process.argv.includes('--dry-run');
-const LANG = arg('lang', 'both');                       // pl | en | both
 const FORCED = arg('tools', '').split(',').map(s => s.trim()).filter(Boolean);
 const BASES_ARG = arg('base', '').split(',').map(s => s.trim()).filter(Boolean);
 const NO_AWARENESS = process.argv.includes('--no-awareness');
@@ -68,9 +68,7 @@ function loadCommands(dir) {
     .map(f => ({ name: f.replace(/\.md$/, ''), ...parse(readFileSync(join(dir, f), 'utf8')) }));
 }
 
-const SETS = [];
-if (LANG === 'pl' || LANG === 'both') SETS.push({ lang: 'pl', suffix: '', cmds: loadCommands(join(HERE, 'commands')) });
-if (LANG === 'en' || LANG === 'both') SETS.push({ lang: 'en', suffix: '-en', cmds: loadCommands(join(HERE, 'commands', 'en')) });
+const CMDS = loadCommands(join(HERE, 'commands'));
 
 // ── Emitters per tool ────────────────────────────────────────────────────────
 const write = (p, content) => {
@@ -87,18 +85,15 @@ function fm(obj) {
 
 function installClaude(dest) {
   // Claude reads frontmatter incl. allowed-tools — copy as-is into a namespaced folder.
-  for (const set of SETS) for (const c of set.cmds) {
-    const sub = set.lang === 'en' ? join(dest, 'en') : dest;
-    write(join(sub, `${c.name}.md`), fm(c.meta) + c.body);
-  }
+  for (const c of CMDS) write(join(dest, `${c.name}.md`), fm(c.meta) + c.body);
 }
 
 function installCodex(dest) {
   // Codex prompts: description + argument-hint frontmatter, $ARGUMENTS supported.
-  for (const set of SETS) for (const c of set.cmds) {
+  for (const c of CMDS) {
     const meta = {}; if (c.meta.description) meta.description = c.meta.description;
     if (c.meta['argument-hint']) meta['argument-hint'] = c.meta['argument-hint'];
-    write(join(dest, `${c.name}${set.suffix}.md`), fm(meta) + c.body);
+    write(join(dest, `${c.name}.md`), fm(meta) + c.body);
   }
 }
 
@@ -109,7 +104,7 @@ function installAntigravity(dest) {
     description: 'Company knowledge base (knowledge-os): query, ingest, lint, sync and deploy a Markdown knowledge base. Use when working inside a folder that has knowledge.config.json / INDEX.md / scripts/reindex.mjs.',
   });
   skill += `# knowledge-os\n\nA portable company knowledge base. Source of truth = \`.md\` files; \`scripts/reindex.mjs\` builds \`INDEX.md\` (for the LLM) and \`kb-data.js\` (for \`viewer.html\`). Read \`AGENTS.md\` in the base first.\n\nEngine (run in the base dir):\n\n\`\`\`\nnode scripts/reindex.mjs            # rebuild INDEX.md + kb-data.js\nnode scripts/reindex.mjs --lint     # health-check only\n\`\`\`\n\n## Procedures\n`;
-  for (const c of (SETS.find(s => s.lang === 'en') || SETS[0]).cmds) {
+  for (const c of CMDS) {
     skill += `\n### ${c.name}\n${c.meta.description ? `_${c.meta.description}_\n` : ''}\n${c.body}\n`;
   }
   write(join(dest, 'SKILL.md'), skill);
@@ -166,7 +161,7 @@ function injectAwareness(file, text) {
 }
 
 // ── Run ──────────────────────────────────────────────────────────────────────
-console.log(`\nknowledge-os installer${DRY ? ' (dry run)' : ''} · languages: ${SETS.map(s => s.lang).join(', ')}\n`);
+console.log(`\nknowledge-os installer${DRY ? ' (dry run)' : ''}\n`);
 const chosen = FORCED.length ? FORCED : Object.keys(TOOLS).filter(t => TOOLS[t].detect());
 if (!chosen.length) {
   console.log('No supported tool detected (Claude Code / Codex / Antigravity).');

@@ -1,39 +1,39 @@
 ---
-description: Ustaw bazę wiedzy krok po kroku (dla osób nietechnicznych) — agent robi całość. Użyj, gdy user mówi np. „skonfiguruj/ustaw mi bazę wiedzy", „pomóż zacząć z knowledge-os", „zainstaluj bazę".
+description: Set up a knowledge base step by step (for non-technical people) — the agent does it all. Use when the user says e.g. "set up my knowledge base", "help me get started with knowledge-os", "install the base".
 allowed-tools: Bash, Read, Write, Edit
 ---
 
-# /kb-setup — instalacja prowadzona przez asystenta
+# /kb-setup — assistant-guided install
 
-Twoje zadanie: ustawić firmową bazę wiedzy dla osoby, która może być nietechniczna. Ty wykonujesz całą pracę techniczną. Użytkownik tylko odpowiada na proste pytania i ewentualnie klika „zaloguj" w przeglądarce.
+Your task: set up a company knowledge base for someone who may be non-technical. You do all the technical work. The user only answers simple questions and maybe clicks "log in" in the browser.
 
-## Zasady rozmowy (ważne)
-- Po polsku, prosto, bez żargonu. Nie mów „repo / clone / remote / commit" — mów „wspólna baza firmy", „pobieram", „łączę z firmą", „zapisuję".
-- Nigdy nie pokazuj surowych błędów. Tłumacz po ludzku, co się stało i co robisz dalej.
-- Jeden krok = jedno pytanie. Nie zasypuj naraz.
-- Sam uruchamiaj wszystkie komendy. Nie każ użytkownikowi nic wpisywać w terminal.
-- Na starcie powiedz w 2 zdaniach, co teraz zrobimy i że zajmie to chwilę.
+## Conversation rules (important)
+- Plain language, no jargon. Don't say "repo / clone / remote / commit" — say "the company's shared base", "downloading", "connecting to the company", "saving".
+- Never show raw errors. Explain in human terms what happened and what you are doing next.
+- One step = one question. Don't pile them up.
+- Run every command yourself. Don't ask the user to type anything into a terminal.
+- At the start, say in 2 sentences what you are about to do and that it will take a moment.
 
-## Krok 1 — Sprawdź, czego trzeba (po cichu)
-Sprawdź: `node --version`, `git --version`, `gh --version`, `gh auth status`.
-- Czego brakuje — zainstaluj sam, jeśli możesz (na macOS `brew install node gh` itd.). Jeśli brak też `brew` — wytłumacz prosto, jak go zainstalować, i zaczekaj.
-- `gh` (GitHub) to najprostszy dla nietechnicznych sposób na dostęp do wspólnej bazy. Jeśli niezalogowany — przeprowadź przez `gh auth login` (logowanie przez przeglądarkę), tłumacząc spokojnie każdy krok.
+## Step 1 — Check what's needed (quietly)
+Check: `node --version`, `git --version`, `gh --version`, `gh auth status`.
+- Whatever is missing — install it yourself if you can (on macOS `brew install node gh` etc.). If `brew` is missing too — explain simply how to install it and wait.
+- `gh` (GitHub) is the simplest way for non-technical people to access the shared base. If not logged in — walk them through `gh auth login` (browser login), calmly explaining each step.
 
-## Krok 2 — Nowa baza czy dołączenie do istniejącej?
-Zapytaj wprost: „Czy ktoś w Twojej firmie już korzysta z tej bazy wiedzy? Jeśli tak — wklej link, który Ci przesłał."
-- Jest link → to dołączenie. Pobierz bazę do `~/knowledge/<slug>` (sklonuj). Jeśli baza w środku jest pusta (brak `knowledge.config.json`) — ostempluj ją szablonem.
-- Nie ma / nowa firma → zapytaj o nazwę firmy. Zaproponuj założenie nowej wspólnej bazy:
-  - jeśli `gh` zalogowane → utwórz prywatną bazę: `gh repo create <user-lub-org>/<slug>-knowledge --private`, połącz i ostempluj szablonem;
-  - jeśli nie → załóż bazę lokalnie i wyjaśnij, że na razie działa u nich na komputerze, a połączysz ją z firmą, gdy będą gotowi.
-- Szablon do stemplowania: `${CLAUDE_PLUGIN_ROOT}/template/` (pomiń `INDEX.md` i `kb-data.js`). Jeśli zmienna pusta — użyj `template/` z repo `knowledge-os`.
+## Step 2 — New base or join an existing one?
+Ask directly: "Does anyone at your company already use this knowledge base? If so — paste the link they sent you."
+- There's a link → this is a join. Download the base into `~/knowledge/<slug>` (clone it). If the base inside is empty (no `knowledge.config.json`) — stamp it with the template.
+- None / new company → ask for the company name. Offer to create a new shared base:
+  - if `gh` is logged in → create a private base: `gh repo create <user-or-org>/<slug>-knowledge --private`, connect and stamp with the template;
+  - if not → create the base locally and explain that for now it lives on their computer, and you'll connect it to the company when they're ready.
+- Template to stamp from: `${CLAUDE_PLUGIN_ROOT}/template/` (skip `INDEX.md` and `kb-data.js`). If the variable is empty — use `template/` from the `knowledge-os` repo.
 
-## Krok 3 — Kim jesteś (personalizacja)
-Zapytaj o imię i nazwisko oraz czym się zajmuje w firmie. Utwórz `ludzie/<handle>.md` ze wzoru `_szablony/osoba.md`, uzupełniając rolę. Wyjaśnij prosto: „dzięki temu asystent będzie dopasowany do Ciebie".
+## Step 3 — Who you are (personalization)
+Ask for their full name and what they do at the company. Create `people/<handle>.md` from the `_templates/person.md` model, filling in the role. Explain simply: "this way the assistant is tailored to you".
 
-## Krok 4 — Uporządkuj i zapisz
-Uzupełnij `knowledge.config.json` (nazwa firmy, slug, ewentualnie adres wspólnej bazy). Uruchom `node scripts/reindex.mjs`. Zarejestruj bazę globalnie (po cichu), żeby asystent widział ją w każdym projekcie: `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>`. Jeśli zakładaliście nową wspólną bazę połączoną z firmą — zrób pierwszy zapis do firmy (`git add/commit/push`), mówiąc po ludzku: „zapisuję bazę w firmie, żeby reszta zespołu miała do niej dostęp".
+## Step 4 — Tidy up and save
+Fill in `knowledge.config.json` (company name, slug, optionally the shared base address). Run `node scripts/reindex.mjs`. Register the base globally (quietly) so the assistant sees it in every project: `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>`. If you created a new shared base connected to the company — make the first save to the company (`git add/commit/push`), saying in human terms: "I'm saving the base to the company so the rest of the team can access it".
 
-## Krok 5 — Pokaż efekt i naucz, co dalej
-- Otwórz przeglądarkę bazy: `open ~/knowledge/<slug>/viewer.html`. Powiedz: „to Twoje okno na całą wiedzę firmy".
-- Wytłumacz w 3 prostych zdaniach: pytania → `/kb-query`, dorzucenie wiedzy → wrzuć notatkę i poproś o zapis (`/kb-ingest`), pobranie nowości od zespołu → `/kb-sync`.
-- Pogratuluj — baza gotowa. Podsumuj krótko i po ludzku, co zostało zrobione.
+## Step 5 — Show the result and teach what's next
+- Open the base viewer: `open ~/knowledge/<slug>/viewer.html`. Say: "this is your window into all the company's knowledge".
+- Explain in 3 simple sentences: questions → `/kb-query`, adding knowledge → drop a note and ask to save it (`/kb-ingest`), pulling updates from the team → `/kb-sync`.
+- Congratulate them — the base is ready. Summarize briefly and in human terms what was done.
