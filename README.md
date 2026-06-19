@@ -93,6 +93,10 @@ Tool-agnostic auto-reindex (replaces the Claude-only hook): in a base, run once
 - `kb-data.js` escapes `</script>` so content can't break out of the data block.
 - Auto-reindex runs `scripts/reindex.mjs` from the nearest ancestor that has a `knowledge.config.json` — only edit files inside bases you trust.
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md). Latest: **0.2.0** — rebase-safe team sync.
+
 ## License
 
 [MIT](LICENSE) © Adrian Skobiej
