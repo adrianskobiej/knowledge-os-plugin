@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # Zero runtime dependencies — nothing to install.
+      - name: Syntax check
+        run: npm run lint
+      - name: Unit + integration tests
+        run: npm test
+      - name: Template stamps and lints clean
+        run: cd template && node scripts/reindex.mjs --lint

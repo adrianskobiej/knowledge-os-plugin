@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1
+
+- **Test suite** (`node --test`, zero dependencies) covering the engine (INDEX/kb-data build, author surfacing, XSS sanitization, `</script>` escaping, whitelist `.gitignore`, `--lint`, git-hook install) and the installer (per-tool adapters, Codex frontmatter, idempotent global awareness, `--dry-run`). Run with `npm test`.
+- **CI** (GitHub Actions): syntax check + tests + template lint on every push/PR.
+- **Hardening:** `viewer.html` now HTML-escapes slugs when building backlink `href`s, closing a narrow DOM-XSS path where a crafted article slug could break out of the attribute (found while writing the tests).
+
 ## 0.3.0
 
 Adopted battle-tested ideas from a sibling system (ContextHub):

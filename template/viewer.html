@@ -120,7 +120,7 @@
     let back = '';
     if (a.backlinks && a.backlinks.length) {
       back = '<div class="backlinks"><h4>Linked from here</h4>' +
-        a.backlinks.map(s => '<a href="#' + s + '">' + escapeHtml((bySlug[s] || {}).title || s) + '</a>').join('') + '</div>';
+        a.backlinks.map(s => '<a href="#' + escapeHtml(s) + '">' + escapeHtml((bySlug[s] || {}).title || s) + '</a>').join('') + '</div>';
     }
     c.innerHTML = '<article><h1>' + escapeHtml(a.title) + '</h1>' + meta + a.html + back + '</article>';
     document.querySelectorAll('.item').forEach(e => e.classList.toggle('active', e.dataset.slug === slug));

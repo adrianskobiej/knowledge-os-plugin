@@ -1,0 +1,11 @@
+{
+  "name": "knowledge-os",
+  "version": "0.3.1",
+  "private": true,
+  "type": "module",
+  "description": "Test + lint tooling for the knowledge-os plugin (zero runtime dependencies).",
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check install.mjs && node --check template/scripts/reindex.mjs && node --check scripts/kb-autoindex.mjs"
+  }
+}

@@ -95,7 +95,7 @@ Tool-agnostic auto-reindex (replaces the Claude-only hook): in a base, run once
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md). Latest: **0.3.0** — whitelist `.gitignore`, sharper ingestion, Git-derived authors, decisions/log register.
+See [CHANGELOG.md](CHANGELOG.md). Latest: **0.3.1** — test suite + CI + backlink-href XSS hardening.
 
 ## License
 
