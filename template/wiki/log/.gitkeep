@@ -1,0 +1,3 @@
+# Per-person activity logs: wiki/log/log-<slug>.md (append-only).
+# Each person writes only to their own file → zero merge conflicts in trunk-based work.
+# /kb-ingest and /kb-deploy append one line here: date — what was added/changed.

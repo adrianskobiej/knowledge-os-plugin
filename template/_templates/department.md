@@ -6,6 +6,7 @@ summary: One sentence describing what this article is about — it lands in the 
 tags: [tag1, tag2]
 entities: [client, product]
 status: draft
+author: your-slug
 # optional — provenance (data room); remove "# " to enable:
 # source: where the content comes from (e.g. "Board decisions, 2026-06")
 # authority: primary    # primary | secondary | derived

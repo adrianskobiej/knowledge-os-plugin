@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0
+
+Adopted battle-tested ideas from a sibling system (ContextHub):
+
+- **Whitelist `.gitignore`** — the base ignores everything by default and shares only the knowledge zones. Raw source material (`raw/`), stray files, exported data and secrets stay local and can never leak to the remote; sharing requires an explicit edit. Security by default.
+- **Sharper ingestion** (`/kb-ingest` + `AGENTS.md`) — entity-granularity rule (own lifecycle → own file, else a row in a parent), the "would an LLM querying this in 6 months actually use it?" filter, facts-with-source, marked hypotheses, transcribe visuals first, and an explicit propose→accept step before writing.
+- **Author from Git** — author slug derived from your git email via a `roster` in `knowledge.config.json`, stamped as `author:` in each article and shown in `INDEX.md` + the viewer. File author matches commit author; no second source of truth.
+- **Decisions & history** — `wiki/decisions.md` (append-only `D-NNN`: who / decision / why / consequences) and per-person `wiki/log/log-<slug>.md` activity logs (everyone writes only to their own file → no merge conflicts).
+
 ## 0.2.0
 
 **Rebase-safe team sync — multiple contributors, one base, nobody's entries lost.**

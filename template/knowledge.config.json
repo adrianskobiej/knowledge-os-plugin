@@ -5,6 +5,9 @@
     "language": "en"
   },
   "remote": "",
+  "roster": {
+    "you@example.com": "your-slug"
+  },
   "departments": ["sales", "marketing", "product", "operations"],
   "conventions": {
     "frontmatterRequired": ["title", "slug", "category", "summary", "status"],

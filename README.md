@@ -82,7 +82,7 @@ Tool-agnostic auto-reindex (replaces the Claude-only hook): in a base, run once
 
 ## Repository layout
 
-- `template/` — knowledge-base scaffold (`AGENTS.md`, `scripts/reindex.mjs`, `viewer.html`, empty content dirs + `_templates/`).
+- `template/` — knowledge-base scaffold (`AGENTS.md`, `scripts/reindex.mjs`, `viewer.html`, whitelist `.gitignore`, empty content dirs, `_templates/`, `wiki/` for decisions + per-person logs).
 - `commands/` — slash-command sources (one source of truth `install.mjs` adapts per tool).
 - `install.mjs` — cross-platform installer (command adapters + global awareness).
 - `.claude-plugin/` + `hooks/` — Claude Code plugin + PostToolUse auto-reindex.
@@ -95,7 +95,7 @@ Tool-agnostic auto-reindex (replaces the Claude-only hook): in a base, run once
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md). Latest: **0.2.0** — rebase-safe team sync.
+See [CHANGELOG.md](CHANGELOG.md). Latest: **0.3.0** — whitelist `.gitignore`, sharper ingestion, Git-derived authors, decisions/log register.
 
 ## License
 

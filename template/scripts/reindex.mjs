@@ -182,6 +182,7 @@ for (const file of files) {
     updated: meta.updated || '',
     source: meta.source || '',
     authority: meta.authority || '',
+    author: meta.author || '',
     links: [...new Set(wikilinks)],
     _body: body,
   });
@@ -275,7 +276,8 @@ for (const top of Object.keys(byTop).sort()) {
     const upd = a.updated ? ` · upd. ${a.updated}` : '';
     const st = a.status !== 'stable' ? ` _(${a.status})_` : '';
     const auth = a.authority && a.authority !== 'primary' ? ` · ⟨${a.authority}⟩` : '';
-    idx += `- **[${a.title}](${a.path})**${st} — ${a.summary}${tags}${auth}${upd}\n`;
+    const by = a.author ? ` · by ${a.author}` : '';
+    idx += `- **[${a.title}](${a.path})**${st} — ${a.summary}${tags}${auth}${by}${upd}\n`;
   }
 }
 writeFileSync(join(ROOT, 'INDEX.md'), idx);
@@ -289,7 +291,7 @@ const data = {
   articles: articles.map(a => ({
     slug: a.slug, title: a.title, path: a.path, category: a.category,
     summary: a.summary, tags: a.tags, status: a.status, updated: a.updated,
-    source: a.source, authority: a.authority,
+    source: a.source, authority: a.authority, author: a.author,
     links: a.links, backlinks: backlinks[a.slug],
     html: mdToHtml(a._body, slugs),
   })),

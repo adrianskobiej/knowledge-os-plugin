@@ -5,6 +5,7 @@ category: people
 summary: Role and main area of responsibility in one sentence.
 tags: [department, role]
 status: stable
+author: your-slug
 external: false
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
