@@ -58,7 +58,7 @@
 <body>
   <nav id="side">
     <div id="brand"><b id="co-name">Knowledge base</b><span id="co-meta"></span></div>
-    <input id="search" placeholder="Search… (title, summary, tag)">
+    <input id="search" placeholder="Search… (title, summary, tag, alias, entity)">
     <div id="tree"></div>
   </nav>
   <main id="main"><div class="wrap" id="content"><div id="empty">Pick an article from the list ←</div></div></main>
@@ -106,7 +106,7 @@
     }
     const groups = {};
     for (const a of D.articles) {
-      const hay = (a.title + ' ' + a.summary + ' ' + (a.author || '') + ' ' + a.status + ' ' + (a.tags || []).join(' ')).toLowerCase();
+      const hay = (a.title + ' ' + a.summary + ' ' + (a.author || '') + ' ' + a.status + ' ' + (a.tags || []).join(' ') + ' ' + (a.aka || []).join(' ') + ' ' + (a.entities || []).join(' ')).toLowerCase();
       if (f && !hay.includes(f)) continue;
       (groups[a.path.split('/')[0]] ??= []).push(a);
     }

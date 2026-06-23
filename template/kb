@@ -1,0 +1,18 @@
+#!/bin/sh
+# kb — reindex the base and open the offline viewer (zero deps).
+# Usage: ./kb            (rebuild + open viewer)
+#        ./kb lint       (health-check only)
+#        ./kb stats      (stats only)
+# Tip: add an alias so you can run it from anywhere, e.g.
+#   alias kb='"$HOME/path/to/your-knowledge-base/kb"'
+cd "$(dirname "$0")" || exit 1
+case "$1" in
+  lint)  node scripts/reindex.mjs --lint ;;
+  stats) node scripts/reindex.mjs --stats ;;
+  *)
+    node scripts/reindex.mjs >/dev/null 2>&1
+    if   command -v open >/dev/null 2>&1; then open viewer.html
+    elif command -v xdg-open >/dev/null 2>&1; then xdg-open viewer.html
+    else echo "Open viewer.html manually: $(pwd)/viewer.html"; fi
+    ;;
+esac

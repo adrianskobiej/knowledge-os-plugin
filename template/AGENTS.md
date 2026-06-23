@@ -107,6 +107,7 @@ node scripts/reindex.mjs                 # rebuild INDEX.md + kb-data.js
 node scripts/reindex.mjs --lint          # health-check only, no writes
 node scripts/reindex.mjs --bless-quotes  # approve protected quotes (quotes.json)
 node scripts/reindex.mjs --install-git-hook  # universal auto-reindex (commit/pull/checkout)
+./kb            # convenience: reindex + open the offline viewer (./kb lint | ./kb stats)
 ```
 
 After every change to `.md` articles, run `node scripts/reindex.mjs` so `INDEX.md` and the
@@ -130,8 +131,13 @@ hooks from `--install-git-hook`, or manually.)
 - **`summary`** is the retrieval surface — write it with real keywords (the agent sees only this in
   the index). **`tags`** for facets; **`entities: [client, product, person]`** for cross-cutting
   lookup (a client/product referenced from many articles). Both feed `INDEX-facets.md`.
+- **`aka: [synonym, synonym]`** — optional aliases for an article (e.g. the owner profile
+  `aka: [boss, owner]`). They go into the index line and the viewer search, so grep/search hit
+  alternative phrasings.
 - The base is **grep-first**: plain Markdown + ripgrep scales to huge bases with zero infra. The
   index is the map; grep / `INDEX-facets.md` is the lookup. No vector DB — keeps it tool-agnostic.
+- **`GAPS.md`** (generated) lists every `⚠` flag, draft and stale article. Agents: treat `⚠` items
+  as UNKNOWN — never present them as fact. It's the user's fill-in to-do list.
 
 ## Lifecycle & archiving (keep the base "effectively small")
 

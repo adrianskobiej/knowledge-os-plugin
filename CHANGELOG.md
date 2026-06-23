@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.0
+
+- **`GAPS.md` — incomplete/unverified to-do list** — `reindex` generates a punch-list of every `⚠` flag, draft and stale article, surfaced in the root map. Agents are told to treat `⚠` items as UNKNOWN (not fact), which cuts confidently-wrong answers; the user gets a fill-in checklist.
+- **Aliases — `aka:` frontmatter** — optional synonyms for an article (e.g. the owner profile `aka: [boss, owner]`) folded into the index line and the viewer search, so grep/search hit alternative phrasings.
+- **`kb` launcher** — a zero-dependency shell script: `./kb` reindexes and opens the offline viewer; `./kb lint` / `./kb stats` for health-check/stats. Easier human access without an agent.
+- **Viewer search** now also matches `aka` and `entities`.
+
 ## 0.7.0
 
 - **Facets — `INDEX-facets.md` + `/kb-find`** — `reindex` generates a tag → articles and entity → articles index from a new optional `entities: [client, product, person]` frontmatter field, so you can jump to "everything about <client>" in one hop. New `/kb-find` command does a precise lookup via grep or facets instead of loading whole indexes.
