@@ -8,11 +8,14 @@
 ## What this is
 
 A company knowledge base. The source of truth is `.md` files with frontmatter in:
-`departments/`, `projects/`, `people/`, `concepts/`. From them we generate:
+`projects/`, `skills/`, `people/`, `meetings/`, `concepts/`, `departments/`. From them we generate:
 - `INDEX.md` — a lightweight index (one line/article). **Read it FIRST.**
 - `kb-data.js` — data for `viewer.html` (the human-facing reader, offline).
 
 Both files are generated and in `.gitignore` — never edit them by hand.
+
+**Language: English only.** All knowledge-base content (articles, templates, decisions, logs)
+is written in English, even if the conversation with the user happens in another language.
 
 ## What goes here (and what does NOT)
 
@@ -30,6 +33,26 @@ explicitly allowed. Only the knowledge zones are shared; stray files and the raw
 Don't load the whole base into context. Read `INDEX.md`, use `summary`/`tags` to pick
 1–5 relevant articles and open only those; go deeper by following `[[slug]]` links.
 
+## Every agent works the same way (multi-agent contract)
+
+This base is tool-agnostic — Claude Code, Antigravity, Codex, Claude Cowork all follow the
+SAME rules. Regardless of which agent you are:
+
+- **Know the user first.** Read the owner / primary-user profile in `people/` (goals, active
+  projects, stack, working style) before acting — it's the context every agent should have.
+- **New project = a structured article.** When a new project appears, create
+  `projects/<slug>.md` from `_templates/project.md`. It MUST carry: **What it is**, **Goal**,
+  **Status**, repo/dir/URL, **✅ in-scope (how agents should help)** and
+  **⛔ non-goals (what agents must NOT do)**. Non-goals are a **HARD boundary** — do not act
+  in those areas without explicit user approval.
+- **Record knowledge, not a changelog.** Save durable, reusable knowledge by refining the
+  relevant article IN PLACE (overwrite/improve — don't append change-by-change). Code diffs
+  belong in the project's own git, not here.
+- **Log your work in one line.** Append a single line to `wiki/log/log-<author>.md` noting what
+  you did and which agent you are, e.g. `2026-06-23 [antigravity] — …`. One file per author →
+  no merge conflicts.
+- **Decisions** that change how we work → a new `D-NNN` entry in `wiki/decisions.md`.
+
 ## Workflow (procedures = /kb-* commands)
 
 - **Query** (`/kb-query <question>`): read `INDEX.md` → open the relevant articles →
@@ -38,6 +61,23 @@ Don't load the whole base into context. Read `INDEX.md`, use `summary`/`tags` to
 - **Add knowledge** (`/kb-ingest [path|topic]`): read the raw material from `raw/`, check
   `INDEX.md` and the target folder's `BRIEF.md`, write article(s) `.md` with full
   frontmatter (models in `_templates/`), link via `[[slug]]`, then run reindex.
+- **New project onboarding** (`/kb-new-project [name|repo]`): when a new project is created,
+  do NOT silently write a stub — **interview the user first**, then fill
+  `_templates/project.md`. Ask (and don't invent — mark anything unknown `⚠ TBD`):
+  1. **Name + slug** (kebab-case).
+  2. **What it is** — the project in 2–3 sentences.
+  3. **Goal** — the outcome; definition of "done".
+  4. **Status** — active / on hold / done.
+  5. **Repo / dir / URL** — GitHub, path on disk, production URL.
+  6. **Stack** — key technologies / services / accounts.
+  7. **✅ In scope** — how agents should help.
+  8. **⛔ Out of scope (non-goals)** — a **HARD boundary**; agents do not act there without
+     explicit approval.
+  9. **Relations** — `[[slug]]` links to people / other projects / skills.
+
+  Prefer asking interactively (an options/question UI if the tool has one; otherwise a numbered
+  list). Then: propose the filled article (path + content), get an explicit OK, write
+  `projects/<slug>.md`, run reindex, and log one line in `wiki/log/log-<author>.md`.
 - **Health-check** (`/kb-lint`): `node scripts/reindex.mjs --lint` — missing fields, dead
   links, orphans, duplicates, protected-quote signals.
 - **Sync** (`/kb-sync`): `git pull --rebase --autostash` → reindex (integrates teammates' work without losing yours).

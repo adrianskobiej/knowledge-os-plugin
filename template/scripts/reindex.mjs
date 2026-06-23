@@ -11,7 +11,7 @@ import { join, relative, sep, dirname, basename, extname } from 'node:path';
 import { createHash } from 'node:crypto';
 
 const ROOT = process.cwd();
-const CONTENT_DIRS = ['departments', 'projects', 'people', 'concepts'];
+const CONTENT_DIRS = ['departments', 'projects', 'people', 'concepts', 'skills', 'meetings'];
 const LINT_ONLY = process.argv.includes('--lint');
 const BLESS = process.argv.includes('--bless-quotes');
 const INSTALL_HOOK = process.argv.includes('--install-git-hook');

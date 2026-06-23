@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0
+
+- **Two new zones: `skills/` and `meetings/`** — skills (Claude skills) and meeting records (date, attendees, decisions, action items) are now first-class entity types alongside `projects/`, `people/`, `concepts/`, `departments/`. Engine `CONTENT_DIRS` updated; new `_templates/skill.md` and `_templates/meeting.md`.
+- **`/kb-new-project` — project onboarding interview** — creating a project is an interview, not a silent stub: the agent asks for description, goal, status, repo/dir/URL, stack, ✅ in-scope and ⛔ non-goals (a HARD boundary), marks unknowns `⚠ TBD`, proposes, then writes `projects/<slug>.md`.
+- **Richer project template** — `_templates/project.md` now carries What it is / Goal / Status / Repo / Stack plus explicit ✅ in-scope and ⛔ out-of-scope (non-goals) guardrail sections.
+- **Multi-agent contract in `AGENTS.md`** — an explicit "Every agent works the same way" section so Claude Code, Antigravity, Codex and Cowork all read the owner profile first and follow the same project/knowledge/logging rules.
+- **English-only content rule** — all knowledge-base content is written in English regardless of the conversation language; unknowns flagged `⚠ TBD`.
+
 ## 0.4.0
 
 - **`/kb-stats` + `reindex --stats`** — base health at a glance: article counts per section and per author, drafts, orphans, and stale articles. Read-only.

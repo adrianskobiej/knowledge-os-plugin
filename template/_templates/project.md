@@ -2,7 +2,7 @@
 title: Project name
 slug: project-name
 category: projects
-summary: What this project is and which problem it solves — in one sentence.
+summary: What this project is and which problem it solves — in one sentence (lands in INDEX, decides if the agent opens it).
 tags: [status-active, technology]
 status: stable
 author: your-slug
@@ -15,9 +15,20 @@ updated: YYYY-MM-DD
 
 # Project name
 
-Goal: ...
-Status: active / on hold / done
-Team: [[first-last]]
+**What it is:** 2–3 sentences — what this project is.
+**Goal:** the outcome; definition of "done".
+**Status:** active | on hold | done
+**Repo / dir / URL:** path on disk · git repo · production URL
+**Stack:** key technologies / services / accounts
+
+## ✅ In scope — how agents should help
+- What any agent (Claude Code, Antigravity, Codex, Cowork…) SHOULD do here.
+- ...
+
+## ⛔ Out of scope (non-goals — HARD boundary)
+> Treat as a hard boundary: do NOT act in these areas without explicit user approval.
+- What is out of scope / off-limits for agents.
+- ...
 
 ## Context
 ...
@@ -26,4 +37,7 @@ Team: [[first-last]]
 - ...
 
 ## Lessons learned (portable) → [[concepts]]
+- ...
+
+## Related → [[other-slug]]
 - ...
