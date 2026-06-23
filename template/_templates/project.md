@@ -39,5 +39,10 @@ updated: YYYY-MM-DD
 ## Lessons learned (portable) → [[concepts]]
 - ...
 
+## Questions it answers
+> Optional — the questions/phrasings this article answers, so search-by-meaning hits it even when
+> the wording differs from the body.
+- e.g. "what is <project>?", "who is it for?", "what must agents NOT touch?"
+
 ## Related → [[other-slug]]
 - ...

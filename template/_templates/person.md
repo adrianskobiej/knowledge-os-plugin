@@ -28,3 +28,7 @@ Contact: email / slack
 
 ## Working style / preferences
 - ...
+
+## Questions it answers
+> Optional — the questions/phrasings this profile answers (for search-by-meaning).
+- e.g. "who is the owner/boss?", "how should I work with them?", "what are their goals?"

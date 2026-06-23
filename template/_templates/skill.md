@@ -23,5 +23,9 @@ updated: YYYY-MM-DD
 ## Notes / gotchas
 - ...
 
+## Questions it answers
+> Optional — the questions/phrasings this skill answers (for search-by-meaning).
+- e.g. "how do I measure <X>?", "when should I use this skill?"
+
 ## Related → [[other-slug]]
 - ...

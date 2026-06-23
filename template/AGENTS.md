@@ -77,10 +77,15 @@ SAME rules. Regardless of which agent you are:
 - **Query** (`/kb-query <question>`): read `INDEX.md` → open the relevant articles →
   answer concisely, citing file paths. Weigh `authority` (`primary` > `secondary` >
   `derived`). Surface contradictions, don't resolve them.
-- **Find** (`/kb-find <term|tag|entity>`): for a precise lookup, especially in a large base —
-  (a) `rg -i "<term>" */*.md` to grep titles/summaries/tags/bodies, or (b) open `INDEX-facets.md`
-  to jump by **tag** or **entity** (client / product / person), then open the matching articles.
-  Use this instead of loading whole indexes when you already know what you're looking for.
+- **Find** (`/kb-find <term|tag|entity>`): precise lookup, especially in a large base.
+  **Search by meaning, not just the literal words** — things aren't always written the way they're
+  asked. Do this (it's semantic search using YOU as the engine, no vector DB):
+  1. **Expand the query first.** From the user's intent, brainstorm 3–8 synonyms / related terms /
+     likely phrasings. Use the glossary (if present) to map concepts to the base's actual terms.
+  2. **Grep all of them**, e.g. `rg -i "lead|prospecting|acquisition|crm" */*.md`, and check `aka:`
+     aliases. Or open `INDEX-facets.md` to jump by tag/entity.
+  3. **Open the hits**, judge relevance by meaning, follow `[[links]]`. If still nothing, scan the
+     relevant `<zone>/INDEX.md` summaries and reason about which fit — don't stop at literal misses.
 - **Add knowledge** (`/kb-ingest [path|topic]`): read the raw material from `raw/`, check
   `INDEX.md` and the target folder's `BRIEF.md`, write article(s) `.md` with full
   frontmatter (models in `_templates/`), link via `[[slug]]`, then run reindex.
@@ -129,6 +134,9 @@ hooks from `--install-git-hook`, or manually.)
 5. Transcribe first: turn screenshots / diagrams / charts into text before saving — the base is text the LLM reads.
 6. Provenance (optional): `source` + `authority` (`primary`/`secondary`/`derived`) per the folder's `BRIEF.md`.
 7. Link liberally via `[[slug]]`.
+7b. **Make implicit meaning findable:** add `aka:` synonyms, and optionally a `## Questions it
+    answers` section listing the questions/phrasings the article answers — so a search by meaning
+    (grep / query expansion) hits it even when the wording differs from the body.
 8. Human-in-the-loop: propose the article (path + content) and get an explicit OK before writing. Outsource the thinking, not the understanding.
 9. Open `viewer.html` to browse the base like a human.
 

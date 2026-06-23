@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.0
+
+- **Search by meaning — no vector DB** — `/kb-find` now does **query expansion**: the agent brainstorms synonyms / related terms / phrasings (using the glossary to map concepts to the base's real terms), then greps all of them — semantic-style retrieval with the LLM as the engine, zero infra and nothing leaving the base. Plain keyword search missed things written in different words; this bridges the vocabulary gap.
+- **`## Questions it answers` section** — optional article/template section listing the questions an article answers, so a meaning-based search hits it even when the body wording differs.
+
 ## 0.9.0
 
 - **Zone-index pagination — bounded files at any scale** — a zone with more than 150 articles is split into `<zone>/INDEX.pN.md` pages (≤150 each), with `<zone>/INDEX.md` becoming a small table-of-contents (title ranges). No generated index file grows unbounded: root map ~1 KB, zone TOC ~1 KB, each page ≤ ~35 KB — so no single agent read blows up context, even at thousands of articles across many contributors. `INDEX-facets.md`/`GAPS.md` documented as grep targets. Benchmark: 2000 articles reindex in ~0.25s; generated indexes are gitignored so concurrent contributors never hit merge conflicts on them.

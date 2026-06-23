@@ -4,20 +4,23 @@ argument-hint: [term, tag, or entity]
 allowed-tools: Bash, Read, Grep, Glob
 ---
 
-# /kb-find — precise lookup (grep + facets)
+# /kb-find — search by meaning (grep + facets, no vector DB)
 
 Looking for: `$ARGUMENTS`
 
-Don't load whole indexes when you already know what you're after. Two ways, pick what fits:
+Things aren't always written the way they're asked. Search by **meaning** — you are the semantic
+engine. Don't match only the literal words:
 
-1. **Free-text** — grep titles/summaries/tags/bodies across the zones:
+1. **Expand the query first.** From the user's intent, brainstorm 3–8 synonyms / related terms /
+   likely phrasings (the user's language + English). Use the glossary (if present) to map concepts
+   to the base's actual terms — e.g. "get clients" → lead-gen, acquisition, prospecting, CRM.
+2. **Grep all of them** across the zones, and check `aka:` aliases:
    ```bash
-   rg -i "$ARGUMENTS" */*.md
+   rg -i "term1|term2|synonym|related" */*.md
    ```
-   Then open the matching articles (and follow `[[links]]`).
-2. **By tag or entity** — open `INDEX-facets.md` and find the row for the tag or entity
-   (client / product / person); it lists every article that carries it. Open those.
+   Or open `INDEX-facets.md` and find the row for a tag/entity (client / product / person).
+3. **Open the hits**, judge relevance by meaning, follow `[[links]]`. If a literal grep misses,
+   scan the relevant `<zone>/INDEX.md` summaries and reason about which fit — don't stop at a miss.
 
 Then answer concisely, citing file paths. If nothing matches, say so and suggest the closest
-zone index (`<zone>/INDEX.md`) to browse. If the lookup revealed a gap, offer to capture it
-(`/kb-ingest`).
+zone index to browse. If the lookup revealed a gap, offer to capture it (`/kb-ingest`).

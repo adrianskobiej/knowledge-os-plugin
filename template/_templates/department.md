@@ -22,3 +22,7 @@ Article content. Link to related ones via [[slug-of-another-article]].
 
 - point
 - point
+
+## Questions it answers
+> Optional — the questions/phrasings this article answers (for search-by-meaning).
+- e.g. "how do we do <process>?", "who owns this?"
