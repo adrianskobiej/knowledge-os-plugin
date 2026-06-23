@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0
+
+- **`/kb-stats` + `reindex --stats`** — base health at a glance: article counts per section and per author, drafts, orphans, and stale articles. Read-only.
+- **Stale detection** — `--lint` now flags articles whose `updated` is older than 6 months (knowledge rot).
+- **Config validation + louder errors** — `knowledge.config.json` is validated (`roster` must be an object, `departments` an array) and parse failures surface as health-check warnings instead of being silently swallowed.
+- **CI hardening** — Node version matrix (18 / 20 / 22) and a separate secret-scan job (`scripts/check-secrets.mjs`, zero-dependency, high-signal patterns).
+- **viewer.html** — a "Recently updated" section, search now also matches author + status, and a defense-in-depth CSP meta (blocks `<base>` hijack, plugins/embeds, form exfil).
+
 ## 0.3.1
 
 - **Test suite** (`node --test`, zero dependencies) covering the engine (INDEX/kb-data build, author surfacing, XSS sanitization, `</script>` escaping, whitelist `.gitignore`, `--lint`, git-hook install) and the installer (per-tool adapters, Codex frontmatter, idempotent global awareness, `--dry-run`). Run with `npm test`.

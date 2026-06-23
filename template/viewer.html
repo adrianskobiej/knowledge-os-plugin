@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Defense-in-depth: block <base> hijack, plugins/embeds and form exfil (no forms/objects are used). -->
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Knowledge base</title>
 <script src="kb-data.js"></script>
 <style>
@@ -87,9 +89,24 @@
         tree.appendChild(el);
       }
     }
+    // Recently updated — only in the unfiltered view
+    if (!f) {
+      const recent = D.articles.filter(a => a.updated)
+        .sort((x, y) => (y.updated || '').localeCompare(x.updated || '')).slice(0, 5);
+      if (recent.length) {
+        const h = document.createElement('div'); h.className = 'cat'; h.textContent = '🕒 Recently updated'; tree.appendChild(h);
+        for (const a of recent) {
+          const el = document.createElement('div');
+          el.className = 'item'; el.dataset.slug = a.slug;
+          el.innerHTML = '<div>' + escapeHtml(a.title) + '</div><small>' + escapeHtml(a.updated) + '</small>';
+          el.onclick = () => { location.hash = a.slug; };
+          tree.appendChild(el);
+        }
+      }
+    }
     const groups = {};
     for (const a of D.articles) {
-      const hay = (a.title + ' ' + a.summary + ' ' + (a.tags || []).join(' ')).toLowerCase();
+      const hay = (a.title + ' ' + a.summary + ' ' + (a.author || '') + ' ' + a.status + ' ' + (a.tags || []).join(' ')).toLowerCase();
       if (f && !hay.includes(f)) continue;
       (groups[a.path.split('/')[0]] ??= []).push(a);
     }

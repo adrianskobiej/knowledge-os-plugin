@@ -102,6 +102,27 @@ test('viewer.html escapes slugs in backlink hrefs (no DOM XSS via slug)', () => 
   assert.ok(!/href="#' \+ s \+/.test(viewer), 'raw slug must not be concatenated into href');
 });
 
+test('--stats reports sections, authors and totals (writes nothing)', () => {
+  const base = makeBase();
+  writeArticle(base, 'concepts/a.md',
+    { title: 'A', slug: 'a', category: 'concepts', summary: 'First article long enough to pass.', status: 'stable', author: 'adrian' });
+  const out = reindex(base, ['--stats']);
+  assert.match(out, /By section:/);
+  assert.match(out, /By author:/);
+  assert.match(out, /adrian: 1/);
+  assert.match(out, /Totals: 1 articles/);
+});
+
+test('--lint flags stale articles and invalid config', () => {
+  const base = makeBase();
+  writeArticle(base, 'concepts/old.md',
+    { title: 'Old', slug: 'old', category: 'concepts', summary: 'A stale article long enough to pass.', status: 'stable', updated: '2020-01-01' });
+  writeFileSync(join(base, 'knowledge.config.json'), '{ not valid json');
+  const out = reindex(base, ['--lint']);
+  assert.match(out, /Stale \(updated 2020-01-01/);
+  assert.match(out, /knowledge\.config\.json: missing or invalid JSON/);
+});
+
 test('--install-git-hook installs non-destructive auto-reindex hooks', () => {
   const base = makeBase();
   execFileSync('git', ['init', '-q'], { cwd: base });

@@ -15,6 +15,7 @@ const CONTENT_DIRS = ['departments', 'projects', 'people', 'concepts'];
 const LINT_ONLY = process.argv.includes('--lint');
 const BLESS = process.argv.includes('--bless-quotes');
 const INSTALL_HOOK = process.argv.includes('--install-git-hook');
+const STATS = process.argv.includes('--stats');
 const REQUIRED = ['title', 'slug', 'category', 'summary', 'status'];
 const AUTHORITIES = ['primary', 'secondary', 'derived'];
 const WIKILINK = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
@@ -214,6 +215,24 @@ for (const a of articles)
   if (backlinks[a.slug].length === 0 && a.links.length === 0)
     warnings.push(`· Orphan (no links): ${a.path}`);
 
+// Stale content (knowledge rot): `updated` older than 6 months
+const STALE_DAYS = 180;
+const _now = Date.now();
+for (const a of articles) {
+  const t = Date.parse(a.updated);
+  if (!Number.isNaN(t) && (_now - t) / 86400000 > STALE_DAYS)
+    warnings.push(`· Stale (updated ${a.updated}, > 6 months — review): ${a.path}`);
+}
+
+// Config sanity — surface problems instead of silently swallowing them
+let config = {};
+try { config = JSON.parse(readFileSync(join(ROOT, 'knowledge.config.json'), 'utf8')); }
+catch { warnings.push('⚠ knowledge.config.json: missing or invalid JSON'); }
+if (config.departments && !Array.isArray(config.departments))
+  warnings.push('⚠ knowledge.config.json: "departments" must be an array');
+if (config.roster && (typeof config.roster !== 'object' || Array.isArray(config.roster)))
+  warnings.push('⚠ knowledge.config.json: "roster" must be an object (email → slug)');
+
 // ── Quote protection (enforced by code, not just by prompt) ──────────────────
 // quotes.json: [{ id, text, in? }]. Lock (.quotes.lock.json) = approved state.
 // Without --bless-quotes: warns when protected text changed since approval
@@ -257,6 +276,22 @@ if (warnings.length) { console.log(`\n— Health-check (${warnings.length}):`); 
 else console.log('✓ Health-check clean');
 if (LINT_ONLY) { console.log('\n(--lint: nothing written)\n'); process.exit(0); }
 
+// ── Stats (base health at a glance) ─────────────────────────────────────────
+if (STATS) {
+  const bySec = {};
+  for (const a of articles) (bySec[a.path.split('/')[0]] ??= []).push(a);
+  const byAuthor = {};
+  for (const a of articles) { const k = a.author || '(unattributed)'; byAuthor[k] = (byAuthor[k] || 0) + 1; }
+  const orphans = articles.filter(a => backlinks[a.slug].length === 0 && a.links.length === 0).length;
+  const stale = warnings.filter(w => w.startsWith('· Stale')).length;
+  console.log('\n— Stats —');
+  console.log('By section:'); for (const s of Object.keys(bySec).sort()) console.log(`  ${s}: ${bySec[s].length}`);
+  console.log('By author:'); for (const a of Object.keys(byAuthor).sort()) console.log(`  ${a}: ${byAuthor[a]}`);
+  console.log(`Totals: ${articles.length} articles · ${drafts} drafts · ${orphans} orphans · ${stale} stale (>6mo)`);
+  console.log('\n(--stats: nothing written)\n');
+  process.exit(0);
+}
+
 // ── INDEX.md (lightweight, for LLMs) ────────────────────────────────────────
 const byTop = {};
 for (const a of articles) (byTop[a.path.split('/')[0]] ??= []).push(a);
@@ -283,8 +318,7 @@ for (const top of Object.keys(byTop).sort()) {
 writeFileSync(join(ROOT, 'INDEX.md'), idx);
 
 // ── kb-data.js (rich, for viewer.html) ──────────────────────────────────────
-let config = {};
-try { config = JSON.parse(readFileSync(join(ROOT, 'knowledge.config.json'), 'utf8')); } catch {}
+// `config` is already loaded + validated above.
 const data = {
   company: config.company || { name: 'Knowledge base' },
   generatedAt: new Date().toISOString(),

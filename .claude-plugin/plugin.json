@@ -1,7 +1,7 @@
 {
   "name": "knowledge-os",
-  "version": "0.3.1",
-  "description": "Company knowledge system: Markdown as the source of truth + a standalone offline HTML viewer. /kb-* commands to create, sync, ingest, query and deploy a knowledge base. Auto-reindex after every change. Tool-agnostic (Claude Code, Codex, Antigravity).",
+  "version": "0.4.0",
+  "description": "Company knowledge system: Markdown as the source of truth + a standalone offline HTML viewer. /kb-* commands to create, sync, ingest, query, stats and deploy a knowledge base. Auto-reindex after every change. Tool-agnostic (Claude Code, Codex, Antigravity).",
   "author": { "name": "Adrian Skobiej" },
   "keywords": ["knowledge-base", "wiki", "markdown", "second-brain", "company-knowledge"]
 }

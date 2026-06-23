@@ -95,7 +95,7 @@ Tool-agnostic auto-reindex (replaces the Claude-only hook): in a base, run once
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md). Latest: **0.3.1** — test suite + CI + backlink-href XSS hardening.
+See [CHANGELOG.md](CHANGELOG.md). Latest: **0.4.0** — `/kb-stats` + stale detection, config validation, CI hardening, viewer recents + CSP.
 
 ## License
 
