@@ -8,6 +8,8 @@
 # 2) Re-allow the knowledge zones + tooling (their nested files are then tracked).
 !/.gitignore
 !/AGENTS.md
+!/CONTEXT.md
+!/now.md
 !/knowledge.config.json
 !/quotes.json
 !/viewer.html
@@ -33,6 +35,8 @@
 #    (this is what keeps merges conflict-free between people).
 /INDEX.md
 /kb-data.js
+# Per-zone indexes are generated too (hierarchical index for large bases).
+/*/INDEX.md
 
 # 5) OS / tooling junk.
 .DS_Store

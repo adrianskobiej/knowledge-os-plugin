@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+- **Scale-ready hierarchical index** — `reindex` now writes a small **root `INDEX.md` map** (zones + counts + "Start here" + briefs) plus a **per-zone `<zone>/INDEX.md`** listing. Agents read the map, open only the zone they need, then 1–5 articles — so retrieval stays fast even with hundreds/thousands of articles (the root inlines full listings only while the base is small, ≤40 articles).
+- **Always-on core context** — new `CONTEXT.md` (compact: who the owner is, goals, active work, preferences, how to navigate) and `now.md` (current focus), surfaced as "Start here" and read first every session. Gives the agent maximum situational awareness without loading the whole base.
+- **Grep-first lookup** — `AGENTS.md` documents grepping titles/summaries/tags for precise lookups at scale (plain Markdown + ripgrep, zero infra — no vector DB, stays tool-agnostic).
+- **`.gitignore`** — whitelists `CONTEXT.md`/`now.md`, ignores generated `*/INDEX.md`.
+
 ## 0.5.0
 
 - **Two new zones: `skills/` and `meetings/`** — skills (Claude skills) and meeting records (date, attendees, decisions, action items) are now first-class entity types alongside `projects/`, `people/`, `concepts/`, `departments/`. Engine `CONTENT_DIRS` updated; new `_templates/skill.md` and `_templates/meeting.md`.

@@ -9,10 +9,12 @@
 
 A company knowledge base. The source of truth is `.md` files with frontmatter in:
 `projects/`, `skills/`, `people/`, `meetings/`, `concepts/`, `departments/`. From them we generate:
-- `INDEX.md` — a lightweight index (one line/article). **Read it FIRST.**
+- `INDEX.md` — root map (zones + counts + "Start here" + briefs). **Read it FIRST.**
+- `<zone>/INDEX.md` — per-zone listing (one line/article) for large-base navigation.
 - `kb-data.js` — data for `viewer.html` (the human-facing reader, offline).
 
-Both files are generated and in `.gitignore` — never edit them by hand.
+These are generated and in `.gitignore` — never edit them by hand. The hand-written
+always-on context lives in `CONTEXT.md` (core) and `now.md` (current focus).
 
 **Language: English only.** All knowledge-base content (articles, templates, decisions, logs)
 is written in English, even if the conversation with the user happens in another language.
@@ -28,10 +30,21 @@ Safety by default: the base uses a whitelist `.gitignore` — everything is igno
 explicitly allowed. Only the knowledge zones are shared; stray files and the raw source in
 `raw/` stay local and are never pushed. Leaking something requires an explicit edit.
 
-## Golden rule for the assistant
+## Golden rule for the assistant — navigate, don't load everything
 
-Don't load the whole base into context. Read `INDEX.md`, use `summary`/`tags` to pick
-1–5 relevant articles and open only those; go deeper by following `[[slug]]` links.
+The base is built to stay fast even when it is very large. Navigate top-down:
+
+1. **`CONTEXT.md`** (+ **`now.md`**) — always read first: who the owner is, goals, active work,
+   preferences, current focus. This is your standing context.
+2. **`INDEX.md` (root map)** — zones with counts + "Start here" + briefs. Do NOT expect every
+   article here; at scale the root only shows the map.
+3. **Zone index** — open the relevant `<zone>/INDEX.md` (e.g. `projects/INDEX.md`) for its
+   one-line-per-article listing; pick 1–5 by `summary`/`tags`.
+4. **Articles** — open only those, then follow `[[slug]]` links.
+
+**Precise lookup at scale:** instead of loading indexes, **grep** the base for a name/term across
+`summary`/title/tags (e.g. `rg -i "acme" */*.md`), then open the hits. Index = the map; grep =
+the lookup.
 
 ## Every agent works the same way (multi-agent contract)
 
