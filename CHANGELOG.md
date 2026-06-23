@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+
+- **Viewer renderer fix** — Markdown tables now render as real `<table>` elements (previously shown as raw `| ... |` text). Added table styling. Engine benchmark: reindex of 2000 articles in ~0.13s, root index stays ~1 KB.
+
 ## 0.8.0
 
 - **`GAPS.md` — incomplete/unverified to-do list** — `reindex` generates a punch-list of every `⚠` flag, draft and stale article, surfaced in the root map. Agents are told to treat `⚠` items as UNKNOWN (not fact), which cuts confidently-wrong answers; the user gets a fill-in checklist.

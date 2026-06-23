@@ -117,7 +117,7 @@ function mdToHtml(md, slugs) {
   const lines = md.split('\n');
   let html = '', i = 0, inCode = false, codeBuf = [], list = null;
   const closeList = () => { if (list) { html += `</${list}>`; list = null; } };
-  const SPECIAL = /^(#{1,6}\s|```|>|[-*]\s|\d+\.\s|---+\s*$)/;
+  const SPECIAL = /^(#{1,6}\s|```|>|[-*]\s|\d+\.\s|---+\s*$|\s*\|)/;
   while (i < lines.length) {
     const line = lines[i];
     if (/^```/.test(line)) {
@@ -130,6 +130,17 @@ function mdToHtml(md, slugs) {
     if (m) { closeList(); const l = m[1].length; html += `<h${l}>${inline(m[2], slugs)}</h${l}>`; i++; continue; }
     if (/^---+\s*$/.test(line)) { closeList(); html += '<hr>'; i++; continue; }
     if (/^>\s?/.test(line)) { closeList(); html += `<blockquote>${inline(line.replace(/^>\s?/, ''), slugs)}</blockquote>`; i++; continue; }
+    // Tables: a "| a | b |" header followed by a "|---|---|" separator row.
+    if (/^\s*\|.*\|\s*$/.test(line) && i + 1 < lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1])) {
+      closeList();
+      const cells = r => r.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+      let t = '<table><thead><tr>' + cells(line).map(c => `<th>${inline(c, slugs)}</th>`).join('') + '</tr></thead><tbody>';
+      i += 2;
+      while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) {
+        t += '<tr>' + cells(lines[i]).map(c => `<td>${inline(c, slugs)}</td>`).join('') + '</tr>'; i++;
+      }
+      html += t + '</tbody></table>'; continue;
+    }
     m = line.match(/^[-*]\s+(.*)$/);
     if (m) { if (list !== 'ul') { closeList(); list = 'ul'; html += '<ul>'; } html += `<li>${inline(m[1], slugs)}</li>`; i++; continue; }
     m = line.match(/^\d+\.\s+(.*)$/);
