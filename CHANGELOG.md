@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0
+
+- **Zone-index pagination — bounded files at any scale** — a zone with more than 150 articles is split into `<zone>/INDEX.pN.md` pages (≤150 each), with `<zone>/INDEX.md` becoming a small table-of-contents (title ranges). No generated index file grows unbounded: root map ~1 KB, zone TOC ~1 KB, each page ≤ ~35 KB — so no single agent read blows up context, even at thousands of articles across many contributors. `INDEX-facets.md`/`GAPS.md` documented as grep targets. Benchmark: 2000 articles reindex in ~0.25s; generated indexes are gitignored so concurrent contributors never hit merge conflicts on them.
+
 ## 0.8.1
 
 - **Viewer renderer fix** — Markdown tables now render as real `<table>` elements (previously shown as raw `| ... |` text). Added table styling. Engine benchmark: reindex of 2000 articles in ~0.13s, root index stays ~1 KB.

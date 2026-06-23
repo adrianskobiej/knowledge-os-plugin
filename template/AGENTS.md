@@ -39,8 +39,14 @@ The base is built to stay fast even when it is very large. Navigate top-down:
 2. **`INDEX.md` (root map)** — zones with counts + "Start here" + briefs. Do NOT expect every
    article here; at scale the root only shows the map.
 3. **Zone index** — open the relevant `<zone>/INDEX.md` (e.g. `projects/INDEX.md`) for its
-   one-line-per-article listing; pick 1–5 by `summary`/`tags`.
+   one-line-per-article listing; pick 1–5 by `summary`/`tags`. For a very large zone this file is a
+   small **TOC of pages** (`<zone>/INDEX.pN.md`, ≤150 articles each) with title ranges — open the
+   page you need, or better, grep.
 4. **Articles** — open only those, then follow `[[slug]]` links.
+
+Every generated file is size-bounded (root map ~1 KB, zone TOC ~1 KB, each page ≤ ~35 KB) so no
+single read blows up your context, no matter how big the base gets. `INDEX-facets.md` and `GAPS.md`
+are **grep targets** — grep them for the tag/entity/term you want; don't load them whole.
 
 **Precise lookup at scale:** instead of loading indexes, **grep** the base for a name/term across
 `summary`/title/tags (e.g. `rg -i "acme" */*.md`), then open the hits. Index = the map; grep =
