@@ -34,6 +34,7 @@
 # 4) Generated files — rebuilt locally on every sync, never committed
 #    (this is what keeps merges conflict-free between people).
 /INDEX.md
+/INDEX-facets.md
 /kb-data.js
 # Per-zone indexes are generated too (hierarchical index for large bases).
 /*/INDEX.md

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0
+
+- **Facets — `INDEX-facets.md` + `/kb-find`** — `reindex` generates a tag → articles and entity → articles index from a new optional `entities: [client, product, person]` frontmatter field, so you can jump to "everything about <client>" in one hop. New `/kb-find` command does a precise lookup via grep or facets instead of loading whole indexes.
+- **Lifecycle & archiving** — `status:` flows `draft → stable → archived`. `status: archived` keeps a file on disk (still grep-able, still in the viewer) but drops it from the index listings, so finished/dead items don't clutter retrieval; the root index shows an archived count. `--lint` already flags stale (>6 months) articles.
+- **Capture loop** — `AGENTS.md` now instructs agents to write durable bits back as they work (refine the article in place, log meetings/decisions, keep `now.md` current) so context compounds with use.
+- Still zero-infra and tool-agnostic — Markdown + ripgrep, no vector DB.
+
 ## 0.6.0
 
 - **Scale-ready hierarchical index** — `reindex` now writes a small **root `INDEX.md` map** (zones + counts + "Start here" + briefs) plus a **per-zone `<zone>/INDEX.md`** listing. Agents read the map, open only the zone they need, then 1–5 articles — so retrieval stays fast even with hundreds/thousands of articles (the root inlines full listings only while the base is small, ≤40 articles).

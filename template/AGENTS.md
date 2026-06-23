@@ -71,6 +71,10 @@ SAME rules. Regardless of which agent you are:
 - **Query** (`/kb-query <question>`): read `INDEX.md` → open the relevant articles →
   answer concisely, citing file paths. Weigh `authority` (`primary` > `secondary` >
   `derived`). Surface contradictions, don't resolve them.
+- **Find** (`/kb-find <term|tag|entity>`): for a precise lookup, especially in a large base —
+  (a) `rg -i "<term>" */*.md` to grep titles/summaries/tags/bodies, or (b) open `INDEX-facets.md`
+  to jump by **tag** or **entity** (client / product / person), then open the matching articles.
+  Use this instead of loading whole indexes when you already know what you're looking for.
 - **Add knowledge** (`/kb-ingest [path|topic]`): read the raw material from `raw/`, check
   `INDEX.md` and the target folder's `BRIEF.md`, write article(s) `.md` with full
   frontmatter (models in `_templates/`), link via `[[slug]]`, then run reindex.
@@ -120,6 +124,31 @@ hooks from `--install-git-hook`, or manually.)
 7. Link liberally via `[[slug]]`.
 8. Human-in-the-loop: propose the article (path + content) and get an explicit OK before writing. Outsource the thinking, not the understanding.
 9. Open `viewer.html` to browse the base like a human.
+
+## Findability metadata (so retrieval stays good at scale)
+
+- **`summary`** is the retrieval surface — write it with real keywords (the agent sees only this in
+  the index). **`tags`** for facets; **`entities: [client, product, person]`** for cross-cutting
+  lookup (a client/product referenced from many articles). Both feed `INDEX-facets.md`.
+- The base is **grep-first**: plain Markdown + ripgrep scales to huge bases with zero infra. The
+  index is the map; grep / `INDEX-facets.md` is the lookup. No vector DB — keeps it tool-agnostic.
+
+## Lifecycle & archiving (keep the base "effectively small")
+
+- `status:` lifecycle: `draft` → `stable` → `archived`. **`status: archived`** keeps the file on
+  disk (still grep-able, still in the viewer) but drops it from the index listings, so dead/finished
+  things don't clutter retrieval. To revive, set it back to `stable`.
+- `--lint` flags **stale** articles (`updated` older than 6 months) — review and refresh or archive.
+
+## Capture loop (context compounds with use)
+
+The base's edge over a memoryless chat is that it remembers. As you work WITH the owner, write the
+durable bits back — cheaply:
+- New durable knowledge → refine the relevant article IN PLACE (don't append a changelog).
+- A meeting with outcomes → `meetings/`; a decision that changes how we work → `D-NNN`.
+- Keep **`now.md`** current — update it when the focus shifts.
+- One line in `wiki/log/log-<author>.md` per change. At the end of a working session, briefly
+  propose what's worth persisting, then capture it on an OK.
 
 ## Identity, decisions & history (shared base)
 
