@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.1
+
+- **Content language is the contributor's choice** — replaced the rigid "English only" content rule with "write in your company's working language"; mixed languages within one base are fine. The interface/structure (viewer, engine, AGENTS.md, frontmatter keys, slugs) stays English.
+
 ## 0.10.0
 
 - **Search by meaning — no vector DB** — `/kb-find` now does **query expansion**: the agent brainstorms synonyms / related terms / phrasings (using the glossary to map concepts to the base's real terms), then greps all of them — semantic-style retrieval with the LLM as the engine, zero infra and nothing leaving the base. Plain keyword search missed things written in different words; this bridges the vocabulary gap.

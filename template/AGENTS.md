@@ -16,8 +16,11 @@ A company knowledge base. The source of truth is `.md` files with frontmatter in
 These are generated and in `.gitignore` — never edit them by hand. The hand-written
 always-on context lives in `CONTEXT.md` (core) and `now.md` (current focus).
 
-**Language: English only.** All knowledge-base content (articles, templates, decisions, logs)
-is written in English, even if the conversation with the user happens in another language.
+**Language: write content in your company's working language.** Each contributor writes entries in
+the language they work in; mixed languages within one base are fine, and you don't translate someone
+else's entry to match. Always keep in **English** (the structure/interface): the viewer UI, the
+engine, this operating manual (`AGENTS.md`), frontmatter **keys** (`title`, `slug`, `category`…) and
+`slug` values. Proper names stay as-is.
 
 ## What goes here (and what does NOT)
 
