@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.12.0
+
+- **Onboarding now branches NEW vs JOIN, and asks the writing language** — `/kb-setup` and `/kb-init` first decide whether you are creating a NEW base or JOINING an existing org base, and that gates the questions. **NEW base:** asks the company name and the **preferred content language** (sets `company.language`, the default everyone inherits) and seeds `CONTEXT.md`. **JOIN:** inherits company name, departments and language from the existing base — no setup questions, just who-you-are. Joiners are added to the `roster`. The end-of-setup tips now mention `/kb-find` and `/kb-new-project`.
+
 ## 0.11.0
 
 - **Dedup & update check before adding** — agents now check the base (search-by-meaning) BEFORE adding any entry. If nothing covers it, add normally; if something does, compare and — when the new info changes something — show existing vs new and **ask the user whether to update or keep**, then refine in place (no duplicate file, no changelog). Contradictions are surfaced, not silently resolved. Keeps the base de-duplicated and trustworthy with many contributors. Wired into `/kb-ingest` and `AGENTS.md`.
