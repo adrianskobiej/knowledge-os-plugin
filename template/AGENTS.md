@@ -89,9 +89,9 @@ SAME rules. Regardless of which agent you are:
      aliases. Or open `INDEX-facets.md` to jump by tag/entity.
   3. **Open the hits**, judge relevance by meaning, follow `[[links]]`. If still nothing, scan the
      relevant `<zone>/INDEX.md` summaries and reason about which fit — don't stop at literal misses.
-- **Add knowledge** (`/kb-ingest [path|topic]`): read the raw material from `raw/`, check
-  `INDEX.md` and the target folder's `BRIEF.md`, write article(s) `.md` with full
-  frontmatter (models in `_templates/`), link via `[[slug]]`, then run reindex.
+- **Add knowledge** (`/kb-ingest [path|topic]`): **first run the dedup & update check (below)**,
+  then read the raw material from `raw/`, check `INDEX.md` and the target folder's `BRIEF.md`, write
+  article(s) `.md` with full frontmatter (models in `_templates/`), link via `[[slug]]`, run reindex.
 - **New project onboarding** (`/kb-new-project [name|repo]`): when a new project is created,
   do NOT silently write a stub — **interview the user first**, then fill
   `_templates/project.md`. Ask (and don't invent — mark anything unknown `⚠ TBD`):
@@ -127,6 +127,22 @@ node scripts/reindex.mjs --install-git-hook  # universal auto-reindex (commit/pu
 After every change to `.md` articles, run `node scripts/reindex.mjs` so `INDEX.md` and the
 viewer stay fresh. (Claude does this automatically via a hook; other tools — via the git
 hooks from `--install-git-hook`, or manually.)
+
+## Before adding: dedup & update check (ALWAYS, before any new entry)
+
+Never blind-add. Before writing a new entry — or a new fact into an existing one — check the base
+first. This keeps it de-duplicated and trustworthy even with many contributors.
+
+1. **Search by meaning first.** Use `/kb-find` (expand the request into synonyms/concepts, then grep
+   + `INDEX-facets.md`) to find any article/section that already covers this.
+2. **Nothing covers it** → add normally (`/kb-ingest` or `/kb-new-project`).
+3. **Something already covers it** → compare the new info against the existing article:
+   - **Already there / same** → do NOT duplicate. Tell the user it exists and cite the path.
+   - **New info adds or changes something** → decide which is newer / more authoritative (compare
+     `updated`, `source`, `authority`). Show the user the **existing text vs the new**, and **ask:
+     update the article, or keep it as-is?** Update only on explicit OK — refine **in place** (don't
+     append a changelog, don't create a duplicate file).
+   - **They contradict** → surface the contradiction to the user; don't resolve it silently.
 
 ## How to add knowledge well
 

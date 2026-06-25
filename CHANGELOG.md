@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+- **Dedup & update check before adding** — agents now check the base (search-by-meaning) BEFORE adding any entry. If nothing covers it, add normally; if something does, compare and — when the new info changes something — show existing vs new and **ask the user whether to update or keep**, then refine in place (no duplicate file, no changelog). Contradictions are surfaced, not silently resolved. Keeps the base de-duplicated and trustworthy with many contributors. Wired into `/kb-ingest` and `AGENTS.md`.
+
 ## 0.10.1
 
 - **Content language is the contributor's choice** — replaced the rigid "English only" content rule with "write in your company's working language"; mixed languages within one base are fine. The interface/structure (viewer, engine, AGENTS.md, frontmatter keys, slugs) stays English.
