@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.15.0
+
+- **Detect-first onboarding** — `/kb-setup` and `/kb-init` now look for an existing base BEFORE asking anything. New `install.mjs --list` reports every base already on the machine (shared registry + ~/knowledge scan) with names, detected tools and which tool adapters are installed — so a base set up in one app (Claude Code / Codex / Antigravity) is reused, not duplicated, when you set up another.
+- **Clearer, hand-held flow** — one friendly question covers the three cases (have a link = JOIN / it is elsewhere = connect / nobody uses one = NEW); the agent runs everything, confirms before creating, and never starts a fresh base when one already exists. JOIN still inherits company/language/departments; NEW asks only name + writing language.
+
 ## 0.14.2
 
 - **License clarity** — added a `license: MIT` field to the plugin manifest and a visible attribution line in the README. The project stays **MIT**: free to use, modify and deploy in your organization, provided the copyright/attribution notice (Adrian Skobiej) is kept on reuse or modification.

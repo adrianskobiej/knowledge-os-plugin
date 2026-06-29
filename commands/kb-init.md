@@ -11,6 +11,12 @@ Arguments: `$ARGUMENTS` (e.g. `acme` or `acme git@github.com:acme/knowledge.git`
 Goal: prepare an independent company knowledge base in `~/knowledge/<slug>`. Each company = a separate repo.
 
 Steps:
+0. **Detect first.** Before creating anything, check whether a base already exists on this machine —
+   including one set up by a different tool (Claude Code / Codex / Antigravity share one registry):
+   `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --list` (JSON: `bases`, `toolsDetected`, `adaptersInstalled`).
+   If a base is found and no repo URL was given, don't create a duplicate — offer to connect this tool to
+   it instead: `node "${CLAUDE_PLUGIN_ROOT}/install.mjs"` (installs `/kb-*` for detected tools + refreshes
+   awareness), then go to step 9. Only proceed to create/clone if the user explicitly wants a different base.
 1. Determine the company `slug` (1st argument; if missing — ask). Target directory: `~/knowledge/<slug>`.
 2. The template ships with the plugin in `${CLAUDE_PLUGIN_ROOT}/template/`. If the variable is empty (running from a clone, not an install), use `template/` in the `knowledge-os` repo.
 3. **Decide NEW vs JOIN** (this gates which questions you ask). If a repo URL is given (2nd argument):

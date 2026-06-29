@@ -8,6 +8,7 @@
 //   node install.mjs --tools=codex,claude   only these tools (comma list)
 //   node install.mjs --base=~/knowledge/x   register a specific base for global awareness
 //   node install.mjs --no-awareness      install commands only, skip global awareness
+//   node install.mjs --list              detect bases already on this machine (JSON), write nothing
 //   node install.mjs --dry-run           print what would happen, write nothing
 //
 // Engine + viewer + AGENTS.md are already tool-agnostic — this only installs the
@@ -158,6 +159,28 @@ function injectAwareness(file, text) {
   mkdirSync(join(file, '..'), { recursive: true });
   writeFileSync(file, cur);
   console.log(`   ✓ ${file}`);
+}
+
+// ── Detect mode (--list) ──────────────────────────────────────────────────────
+// Onboarding step 0: find any base ALREADY known on this machine — across tools —
+// before asking the user anything or creating a new base. Sources (all cross-tool):
+//   1) the shared registry ~/.config/knowledge-os/bases.json (written by every tool)
+//   2) the ~/knowledge/<slug>/ convention (dirs with knowledge.config.json)
+// Prints JSON so the agent can branch reliably. Writes nothing.
+if (process.argv.includes('--list')) {
+  const registry = loadRegistry();
+  const discovered = discoverBases();
+  const seen = new Set();
+  const bases = [...registry, ...discovered].filter(p => (seen.has(p) ? false : seen.add(p)))
+    .map(p => {
+      let name = '', slug = '';
+      try { const c = JSON.parse(readFileSync(join(p, 'knowledge.config.json'), 'utf8')); name = c.company?.name || ''; slug = c.company?.slug || ''; } catch {}
+      return { path: p, name, slug, exists: existsSync(join(p, 'knowledge.config.json')) };
+    });
+  const toolsDetected = Object.keys(TOOLS).filter(t => TOOLS[t].detect());
+  const adapters = Object.fromEntries(Object.keys(TOOLS).map(t => [t, existsSync(TOOLS[t].dest)]));
+  console.log(JSON.stringify({ found: bases.length > 0, bases, toolsDetected, adaptersInstalled: adapters, registryFile: REG_FILE }, null, 2));
+  process.exit(0);
 }
 
 // ── Run ──────────────────────────────────────────────────────────────────────
