@@ -2,6 +2,7 @@
 title: Skill name
 slug: skill-name
 category: skills
+type: Skill                        # OKF type
 summary: What this skill does in one sentence — lands in INDEX, decides if the agent opens it.
 tags: [skill, area]
 status: stable

@@ -4,6 +4,8 @@
 
 Plain `.md` files are the source of truth. A zero-dependency script compiles them into a lightweight index for LLMs and a standalone, offline HTML viewer for humans. Works with Claude Code, Codex, Antigravity — or no agent at all.
 
+**OKF-compatible.** Bundles conform to the [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) (markdown + frontmatter with a `type` on every concept), so your knowledge interoperates with the wider OKF ecosystem — while keeping the richer retrieval (hierarchical paginated index, facets, search-by-meaning) layered on top.
+
 ---
 
 ## The problem

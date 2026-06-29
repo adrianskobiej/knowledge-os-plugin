@@ -12,6 +12,10 @@ import { createHash } from 'node:crypto';
 
 const ROOT = process.cwd();
 const CONTENT_DIRS = ['departments', 'projects', 'people', 'concepts', 'skills', 'meetings'];
+// OKF (Open Knowledge Format) requires a `type` on every concept. We honor an explicit
+// `type:` in frontmatter and otherwise derive a sensible default from the zone, so every
+// article is OKF-conformant without per-file edits.
+const ZONE_TYPE = { projects: 'Project', skills: 'Skill', people: 'Person', meetings: 'Meeting', concepts: 'Concept', departments: 'Department' };
 const LINT_ONLY = process.argv.includes('--lint');
 const BLESS = process.argv.includes('--bless-quotes');
 const INSTALL_HOOK = process.argv.includes('--install-git-hook');
@@ -188,6 +192,8 @@ for (const file of files) {
     title: meta.title || slug,
     path: rel.split(sep).join('/'),
     category: meta.category || rel.split(sep)[0],
+    type: meta.type || ZONE_TYPE[rel.split(sep)[0]] || 'Concept',  // OKF: required field (derived if absent)
+    resource: meta.resource || '',                                   // OKF: optional canonical URI
     summary: meta.summary || '',
     tags: meta.tags || [],
     entities: meta.entities || [],
@@ -454,6 +460,7 @@ const data = {
   generatedAt: new Date().toISOString(),
   articles: articles.map(a => ({
     slug: a.slug, title: a.title, path: a.path, category: a.category,
+    type: a.type, resource: a.resource,
     summary: a.summary, tags: a.tags, entities: a.entities, aka: a.aka,
     status: a.status, updated: a.updated,
     source: a.source, authority: a.authority, author: a.author,

@@ -2,6 +2,8 @@
 title: Project name
 slug: project-name
 category: projects
+type: Project                       # OKF type (required by OKF; defaults to the zone if omitted)
+# resource: https://…              # OKF: optional canonical URL/repo for the project
 summary: What this project is and which problem it solves — in one sentence (lands in INDEX, decides if the agent opens it).
 tags: [status-active, technology]
 status: stable

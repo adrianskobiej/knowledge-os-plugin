@@ -2,6 +2,7 @@
 title: First Last
 slug: first-last
 category: people
+type: Person                       # OKF type
 summary: Role and main area of responsibility in one sentence.
 tags: [department, role]
 status: stable

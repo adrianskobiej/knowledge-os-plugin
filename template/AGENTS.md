@@ -147,7 +147,10 @@ first. This keeps it de-duplicated and trustworthy even with many contributors.
 
 ## How to add knowledge well
 
-1. Required frontmatter: `title`, `slug`, `category`, `summary`, `status`, `author`. Model in `_templates/`.
+1. Required frontmatter: `title`, `slug`, `category`, `summary`, `status`, `author`, plus **`type`**
+   (OKF — derived from the zone if omitted). Optional `resource:` = a canonical URL/repo. Model in
+   `_templates/`. This base is **OKF-compatible** (Open Knowledge Format): markdown + frontmatter with a
+   `type` on every concept, so bundles interoperate with the OKF ecosystem.
 2. `summary` = one concrete sentence (the only thing the assistant sees in the index).
 3. Granularity (file vs row): if the thing has its own lifecycle — updates independently, has its own owner/ID, someone may need only it — give it its own `.md`. If it's a small annotation, make it a row/section inside a parent article. Don't shard trivia; don't bury independent things.
 4. Quality filter: keep only what passes "would an LLM querying this in 6 months actually use it?". Record facts with their source; mark hypotheses/assumptions as such; drop paraphrase, speculation, raw code, secrets.

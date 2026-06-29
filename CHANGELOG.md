@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.0
+
+- **OKF-compatible (Open Knowledge Format)** — every concept now carries a `type` (the one field OKF requires): the engine honors an explicit `type:` and otherwise derives it from the zone (projects-Project, skills-Skill, people-Person, meetings-Meeting, concepts-Concept, departments-Department), so bundles are OKF-conformant out of the box and interoperate with the OKF ecosystem. Added optional `resource:` (canonical URL/repo), shown in the viewer. Templates carry `type`. We keep our own conventions (wikilinks, rich paginated index) on top — OKF is permissive. No GCP/Dataplex tooling involved.
+
 ## 0.12.1
 
 - **Base `version` no longer drifts** — the template config starts at the current version and onboarding (`/kb-init`, `/kb-setup`) stamps a NEW base's `version` from the installed plugin's version, so a base records which engine created it instead of a stale default.

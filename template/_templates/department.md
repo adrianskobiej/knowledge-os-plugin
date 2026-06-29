@@ -2,6 +2,7 @@
 title: Department / topic name
 slug: unique-kebab-slug
 category: departments/department-name
+type: Reference                    # OKF type (e.g. Reference, Concept, Playbook, Department — pick one)
 summary: One sentence describing what this article is about — it lands in the INDEX and decides whether the LLM opens it.
 tags: [tag1, tag2]
 entities: [client, product]

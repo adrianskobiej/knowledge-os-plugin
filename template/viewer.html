@@ -131,11 +131,13 @@
     const c = document.getElementById('content');
     if (!a) { c.innerHTML = '<div id="empty">Not found: ' + escapeHtml(slug) + '</div>'; return; }
     let meta = '<div class="meta"><span class="status-' + a.status + '">' + a.status + '</span>';
+    if (a.type) meta += '<span class="chip auth">' + escapeHtml(a.type) + '</span>';
     if (a.updated) meta += '<span>· upd. ' + a.updated + '</span>';
     if (a.authority) meta += '<span class="chip auth">⟨' + escapeHtml(a.authority) + '⟩</span>';
     if (a.author) meta += '<span class="chip">by ' + escapeHtml(a.author) + '</span>';
     if (a.source) meta += '<span class="chip">source: ' + escapeHtml(a.source) + '</span>';
     for (const t of (a.tags || [])) meta += '<span class="chip">' + escapeHtml(t) + '</span>';
+    if (a.resource) { const r = escapeHtml(a.resource); meta += '<span class="chip"><a href="' + r + '">resource ↗</a></span>'; }
     meta += '</div>';
     let back = '';
     if (a.backlinks && a.backlinks.length) {

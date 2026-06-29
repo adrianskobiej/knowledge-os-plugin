@@ -2,6 +2,7 @@
 title: Meeting — <topic>, <YYYY-MM-DD>
 slug: meeting-topic-yyyy-mm-dd
 category: meetings
+type: Meeting                      # OKF type
 summary: One sentence — who met, about what, and the main outcome (lands in INDEX).
 tags: [meeting, area]
 status: stable
