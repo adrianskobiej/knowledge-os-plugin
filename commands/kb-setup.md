@@ -27,13 +27,17 @@ node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --list
 This prints JSON: `bases` (known bases with name/path), `toolsDetected`, `adaptersInstalled` (per tool).
 Also glance at your own global instructions — a `knowledge-os` block there already lists registered bases.
 
-- **A base is found** → do NOT create or ask new/join. Say it plainly: *"You already have a knowledge
-  base: **<name>** — I'll connect this app to it."* Then **connect the current tool**:
+- **One base is found** and it's clearly theirs → say it plainly: *"You already have a knowledge base:
+  **<name>** — I'll connect this app to it."* Then **connect the current tool**:
   ```bash
   node "${CLAUDE_PLUGIN_ROOT}/install.mjs"
   ```
   (installs the `/kb-*` commands for every detected tool and refreshes awareness from the registry).
-  Confirm who they are if there's no profile for them yet (Step 4), then jump to **Step 7**. Done.
+  Confirm who they are if there's no profile yet (Step 4), then jump to **Step 7**. Done.
+- **Base(s) found but they may want another company** (you / a consultant run several companies) → list
+  them and ask: *"You already have: <names>. (1) open one of these, (2) join a different company's base
+  [link], or (3) set up a NEW base for a different company?"* → (1) connect as above, (2) Step 3A, (3) Step 3B.
+  Each company is always its **own separate repo + folder** — never merge two companies into one base.
 - **No base found** → go to Step 1.
 
 ## Step 1 — One friendly question: which situation are you in?
@@ -50,11 +54,21 @@ Ask exactly this (numbered choices):
   treat as JOIN (Step 3A). Never start a fresh base when one already exists somewhere.
 - **(3) fresh → NEW.** Go to Step 3B.
 
-## Step 2 — Check prerequisites (quietly, only what the chosen path needs)
-Check `node --version`, `git --version`, and for anything involving the company's shared copy also
-`gh --version` + `gh auth status`. Install what's missing if you can (macOS: `brew install node gh`).
-For a shared base, the simplest access is GitHub — if not logged in, walk them through `gh auth login`
-(browser), calmly. A purely local NEW base needs only node + git.
+## Step 2 — GitHub access (the base lives in the company's OWN private repo; lead them there)
+The company's base belongs in **their own** private GitHub repo, under **their** account or
+organization — never anyone else's. Get them there, hand-held. First install what's missing
+(`node`, `git`, `gh`; macOS `brew install node gh`), then check `gh auth status`:
+- **Logged in** → good. The repo will be created under their account/org (confirm which one).
+- **Has an account, not logged in** → walk them through `gh auth login` (browser), calmly, one click at a time.
+- **No GitHub account at all** → do NOT silently fall back to local. In plain words: *"GitHub is a free,
+  private place to keep your company's knowledge safe online and share it with your team — let's make you
+  one, it takes a minute."* Then guide them:
+  1. open https://github.com/signup — help pick a username, enter email, verify the code;
+  2. (recommended for a company) create a free **Organization** at
+     https://github.com/account/organizations/new so the whole team can share the base;
+  3. then `gh auth login` (browser) to connect this computer.
+- **Genuine last resort** (they can't/won't make an account now) → create the base locally, say it lives on
+  their computer for now, and that you'll connect it to GitHub later (just re-run setup) when they're ready.
 
 ## Step 3A — JOIN an existing base (inherit, don't re-ask)
 Download the base into `~/knowledge/<slug>`. Its config already holds the company name, departments and
@@ -66,9 +80,13 @@ departments or company name.** You only need who they are (Step 4). (If the down
 Ask only: (1) the **company name**, and (2) **"In which language should entries be written?"** → this
 becomes the company default (`company.language`) everyone who joins later inherits (the interface stays
 English). Then create it:
-- if `gh` is logged in → private shared base: `gh repo create <user-or-org>/<slug>-knowledge --private`, connect, stamp with the template;
-- if not → create it locally and explain it lives on their computer for now; you'll connect it to the company when they're ready.
+- if `gh` is logged in → create the company's **own private repo under THEIR account/organization**:
+  `gh repo create <their-account-or-org>/<slug>-knowledge --private` (an Organization is best for a team;
+  a personal account is fine for one person), connect, stamp with the template;
+- if not (local last-resort) → create it locally and explain it lives on their computer for now; you'll
+  connect it to their GitHub later when they're ready.
 - Departments: keep the template defaults unless they ask to change them.
+- (Each company = its own repo + its own `~/knowledge/<slug>` folder. Never put two companies in one base.)
 
 Template to stamp from: `${CLAUDE_PLUGIN_ROOT}/template/` (skip `INDEX.md` and `kb-data.js`). If that
 variable is empty, use `template/` from the `knowledge-os` repo.

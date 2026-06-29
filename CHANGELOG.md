@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.16.0
+
+- **Onboarding for non-technical clients & multi-company use** — each company gets its OWN private repo under THEIR account/organization. /kb-setup now: (a) if the user has no GitHub account, guides them through creating one (and optionally a company Organization) instead of silently falling back to a local-only base; (b) when bases already exist, offers to open one, join a different company, or set up a NEW base for a different company (for people/consultants running several) — never merging two companies into one base.
+
 ## 0.15.0
 
 - **Detect-first onboarding** — `/kb-setup` and `/kb-init` now look for an existing base BEFORE asking anything. New `install.mjs --list` reports every base already on the machine (shared registry + ~/knowledge scan) with names, detected tools and which tool adapters are installed — so a base set up in one app (Claude Code / Codex / Antigravity) is reused, not duplicated, when you set up another.
