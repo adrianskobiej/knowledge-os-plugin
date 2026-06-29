@@ -5,7 +5,7 @@
     {
       "name": "knowledge-os",
       "source": "./",
-      "description": "Company knowledge system: Markdown + a standalone offline HTML viewer, /kb-* commands, auto-reindex. Tool-agnostic (Claude Code, Codex, Antigravity)."
+      "description": "OKF-compatible company knowledge base: Markdown + offline HTML viewer, scale-ready index with facets & search-by-meaning, /kb-* commands, built-in agent procedures (onboarding, dedup, capture). Tool-agnostic (Claude Code, Codex, Antigravity)."
     }
   ]
 }

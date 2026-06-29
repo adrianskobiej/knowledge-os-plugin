@@ -1,7 +1,7 @@
 {
   "name": "knowledge-os",
   "version": "0.14.0",
-  "description": "Company knowledge system: Markdown as the source of truth + a standalone offline HTML viewer. /kb-* commands to create, sync, ingest, query, stats, onboard projects and deploy a knowledge base. Hierarchical index + always-on core context (CONTEXT.md/now.md) that stays fast at scale. Zones for projects, skills, people, meetings & concepts. Tool-agnostic (Claude Code, Codex, Antigravity).",
+  "description": "OKF-compatible company knowledge base: Markdown as the source of truth + an offline HTML viewer. Hierarchical, scale-ready index with facets and search-by-meaning, plus always-on core context (CONTEXT.md/now.md). /kb-* commands to create, sync, ingest, query, find, onboard projects and deploy, with built-in agent procedures (NEW/JOIN onboarding, dedup-before-add, capture loop). Zones for projects, skills, people, meetings & concepts. Tool-agnostic (Claude Code, Codex, Antigravity).",
   "author": { "name": "Adrian Skobiej" },
-  "keywords": ["knowledge-base", "wiki", "markdown", "second-brain", "company-knowledge"]
+  "keywords": ["knowledge-base", "wiki", "markdown", "second-brain", "company-knowledge", "okf", "open-knowledge-format"]
 }
