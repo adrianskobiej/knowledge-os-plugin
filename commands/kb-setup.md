@@ -123,7 +123,29 @@ this is what keeps things consistent across apps. For a NEW shared base, make th
 employee)**, save just their profile back the same way (`git add/commit/push`) so the team sees they
 joined — if that push is rejected, they have read-only access; tell them to ask the admin for write access.
 
-## Step 7 — Show the result and teach what's next
+## Step 7 — Get to know them & their work (conversational onboarding — run this AUTOMATICALLY right after the base is ready; don't wait to be asked)
+A fresh base is mostly empty — make it useful by learning about the person and their work, in a warm,
+natural conversation. Start it yourself the moment setup finishes: *"Your base is ready 🎉 — let me get to
+know you and your work for a couple of minutes so I can actually help. Skip anything you like."*
+Rules: one question at a time, plain and friendly, everything optional; after each answer, save it
+(refine the article in place) and reindex — don't dump it all at once.
+
+**NEW base (owner / first person):**
+- **Goals** — what are you working toward (business and personal)? → enrich their `people/` profile + `CONTEXT.md`.
+- **Active projects** — what are you building or running? For each one, offer the project interview
+  (`/kb-new-project`) so the base starts with real content instead of empty zones.
+- **How you like to work** — language, tone, "propose before acting", anything to avoid → profile + `CONTEXT.md`.
+- **Current focus** — what's top of mind this week? → `now.md`.
+
+**JOIN (new employee):**
+- Lighter — the company context already exists; do NOT redo it or touch `CONTEXT.md`/`now.md`.
+- Just enrich **their** `people/` profile: role, expertise / what to ask them about, how they work, and
+  optionally what they're working on right now (so teammates know).
+
+If they'd rather skip, that's fine — tell them they can add things anytime with `/kb-ingest` (knowledge)
+and `/kb-new-project` (a project), and that `GAPS.md` lists anything left to fill.
+
+## Step 8 — Show the result and wrap up
 - Open the viewer: `open ~/knowledge/<slug>/viewer.html` — "this is your window into all the company's knowledge."
 - In plain language: ask questions → `/kb-query`; find something → `/kb-find`; save knowledge → drop a note and ask to save it (`/kb-ingest`); start a project → `/kb-new-project`; get the team's updates → `/kb-sync`.
-- Congratulate them and summarize, in human terms, what you did.
+- Congratulate them and summarize, in human terms, what you set up and what you learned about them.

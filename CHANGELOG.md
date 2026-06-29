@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.18.0
+
+- **Conversational onboarding right after install** — once the base is ready, the agent automatically (without being asked) gets to know the person and their work: goals, active projects (offered as /kb-new-project so the base starts with real content, not empty zones), how they like to work, and this week focus (now.md). New employees get a lighter version (enrich their own profile; company context untouched). Everything is one-question-at-a-time and skippable.
+
 ## 0.17.0
 
 - **New-employee JOIN flow** — onboarding now leads a new team member onto the company base: sign in as themselves, get access to the PRIVATE repo (if the clone is blocked, the agent explains in plain words to ask the admin for an invite to the repo/organization, then retries — never shows a raw error), inherit company/language/departments, and save their profile back so the team sees they joined (read-only access is detected and flagged). Clean separation: creators make a repo under their own org; employees join the existing one.

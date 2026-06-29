@@ -42,5 +42,9 @@ Steps:
 7. Run `node scripts/reindex.mjs` in the base directory.
 8. Register the base globally so the agent in EVERY project knows it exists: `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>` (writes a registry + a pointer into each tool's global instructions). Optionally install the universal auto-reindex: `node scripts/reindex.mjs --install-git-hook`.
 9. Show: the base path, the article count, the command to open `viewer.html` (e.g. `open ~/knowledge/<slug>/viewer.html`).
+10. **Then onboard the owner conversationally (don't stop at "base ready").** For a NEW base, offer to
+    capture their goals, how they work (→ profile + `CONTEXT.md`), this week's focus (→ `now.md`), and
+    their active projects via `/kb-new-project` — so the base starts with real content, not empty zones.
+    (`/kb-setup` does this hand-held; `/kb-init` users can be offered it more briefly.)
 
 Do not commit automatically — that is what `/kb-deploy` is for.
