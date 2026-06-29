@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.14.1
+
+- **Added RELEASING.md** — a maintainer guide for shipping a change so code, version, git tags, GitHub Releases and descriptions stay in sync (bumping the version alone is not a release). README points to it; Changelog line no longer hardcodes a stale version.
+
 ## 0.14.0
 
 - **Per-zone procedures shipped in the starter** — every zone now includes a `BRIEF.md` (projects, skills, people, meetings, concepts, departments) describing what belongs there and the step-by-step add procedure (dedup-first, which template, required frontmatter incl. `type`, linking, reindex, log). New bases get the mechanics out of the box instead of empty zones.

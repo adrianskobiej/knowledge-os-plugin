@@ -97,7 +97,11 @@ Tool-agnostic auto-reindex (replaces the Claude-only hook): in a base, run once
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md). Latest: **0.4.0** — `/kb-stats` + stale detection, config validation, CI hardening, viewer recents + CSP.
+See [CHANGELOG.md](CHANGELOG.md) for the full history, and the [Releases](../../releases) page for the latest tagged version.
+
+## Releasing / contributing
+
+Maintainers: follow [RELEASING.md](RELEASING.md) when shipping a change — it keeps the code, version, git tags, GitHub Releases and descriptions in sync (bumping the version alone is **not** a release).
 
 ## License
 
