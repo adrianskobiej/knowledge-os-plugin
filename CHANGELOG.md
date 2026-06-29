@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.14.0
+
+- **Per-zone procedures shipped in the starter** — every zone now includes a `BRIEF.md` (projects, skills, people, meetings, concepts, departments) describing what belongs there and the step-by-step add procedure (dedup-first, which template, required frontmatter incl. `type`, linking, reindex, log). New bases get the mechanics out of the box instead of empty zones.
+
 ## 0.13.0
 
 - **OKF-compatible (Open Knowledge Format)** — every concept now carries a `type` (the one field OKF requires): the engine honors an explicit `type:` and otherwise derives it from the zone (projects-Project, skills-Skill, people-Person, meetings-Meeting, concepts-Concept, departments-Department), so bundles are OKF-conformant out of the box and interoperate with the OKF ecosystem. Added optional `resource:` (canonical URL/repo), shown in the viewer. Templates carry `type`. We keep our own conventions (wikilinks, rich paginated index) on top — OKF is permissive. No GCP/Dataplex tooling involved.
