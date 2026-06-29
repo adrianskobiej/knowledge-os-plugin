@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.18.1
+
+- **Onboarding coherence pass** — fixed two stale step references in /kb-setup after the step renumbering (the connect-existing and already-elsewhere paths now jump to the wrap-up step, not the new conversational-onboarding step, so existing users are not re-onboarded). Reviewed the whole flow end-to-end; the org-already-uses-KB path (detect, connect, or new-employee JOIN with invite/access/write guidance) is consistent.
+
 ## 0.18.0
 
 - **Conversational onboarding right after install** — once the base is ready, the agent automatically (without being asked) gets to know the person and their work: goals, active projects (offered as /kb-new-project so the base starts with real content, not empty zones), how they like to work, and this week focus (now.md). New employees get a lighter version (enrich their own profile; company context untouched). Everything is one-question-at-a-time and skippable.

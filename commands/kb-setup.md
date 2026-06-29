@@ -33,7 +33,8 @@ Also glance at your own global instructions — a `knowledge-os` block there alr
   node "${CLAUDE_PLUGIN_ROOT}/install.mjs"
   ```
   (installs the `/kb-*` commands for every detected tool and refreshes awareness from the registry).
-  Confirm who they are if there's no profile yet (Step 4), then jump to **Step 7**. Done.
+  Confirm who they are if there's no profile yet (Step 4), then jump to **Step 8** (show & wrap up). Done —
+  they're an existing user, so don't re-run the full onboarding.
 - **Base(s) found but they may want another company** (you / a consultant run several companies) → list
   them and ask: *"You already have: <names>. (1) open one of these, (2) join a different company's base
   [link], or (3) set up a NEW base for a different company?"* → (1) connect as above, (2) Step 3A, (3) Step 3B.
@@ -50,7 +51,7 @@ Ask exactly this (numbered choices):
 - **(1) link → JOIN.** Take the link and download the base (Step 3A).
 - **(2) elsewhere → connect/JOIN.** If it's a folder already on *this* computer, point at it:
   `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base <path>` then `node …/install.mjs` and you're done
-  (Step 7). If it's on another machine/teammate, ask them to grab the **link** from whoever has it, then
+  (Step 8). If it's on another machine/teammate, ask them to grab the **link** from whoever has it, then
   treat as JOIN (Step 3A). Never start a fresh base when one already exists somewhere.
 - **(3) fresh → NEW.** Go to Step 3B.
 
