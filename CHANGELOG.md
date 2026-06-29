@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.14.2
+
+- **License clarity** — added a `license: MIT` field to the plugin manifest and a visible attribution line in the README. The project stays **MIT**: free to use, modify and deploy in your organization, provided the copyright/attribution notice (Adrian Skobiej) is kept on reuse or modification.
+
 ## 0.14.1
 
 - **Added RELEASING.md** — a maintainer guide for shipping a change so code, version, git tags, GitHub Releases and descriptions stay in sync (bumping the version alone is not a release). README points to it; Changelog line no longer hardcodes a stale version.
