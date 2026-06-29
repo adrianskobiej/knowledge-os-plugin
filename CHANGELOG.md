@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.12.1
+
+- **Base `version` no longer drifts** — the template config starts at the current version and onboarding (`/kb-init`, `/kb-setup`) stamps a NEW base's `version` from the installed plugin's version, so a base records which engine created it instead of a stale default.
+
 ## 0.12.0
 
 - **Onboarding now branches NEW vs JOIN, and asks the writing language** — `/kb-setup` and `/kb-init` first decide whether you are creating a NEW base or JOINING an existing org base, and that gates the questions. **NEW base:** asks the company name and the **preferred content language** (sets `company.language`, the default everyone inherits) and seeds `CONTEXT.md`. **JOIN:** inherits company name, departments and language from the existing base — no setup questions, just who-you-are. Joiners are added to the `roster`. The end-of-setup tips now mention `/kb-find` and `/kb-new-project`.

@@ -23,7 +23,10 @@ Steps:
    - **NEW base:** ask for the **company name** and the **preferred content language** ("In which language
      will entries be written?"). Set `company.name`, `company.slug=<slug>`, `company.language=<lang>` (the
      default everyone who joins later inherits), `remote=<url>` if any; adjust `departments` if needed.
-     Then seed `CONTEXT.md` (owner, company, language, a line on goals / how to work) and leave `now.md`.
+     Also set `version` to the installed plugin version (read it from
+     `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`; fall back to the template's value) so the base
+     records which engine version created it. Then seed `CONTEXT.md` (owner, company, language, a line on
+     goals / how to work) and leave `now.md`.
    - **JOIN:** **inherit** `company.name`, `departments` and `company.language` from the existing config —
      do NOT re-ask or overwrite them, and don't touch `CONTEXT.md`/`now.md`.
 6. Ask for your handle and role → create `people/<handle>.md` from `_templates/person.md`, and add your git

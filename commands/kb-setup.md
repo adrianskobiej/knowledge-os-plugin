@@ -54,8 +54,10 @@ standing context from day one.
 
 ## Step 4 — Tidy up and save
 Set `knowledge.config.json`: for a NEW base fill `company.name`, `company.slug`, `company.language`
-(from Step 2), and the shared-base address if any; for a JOIN leave the inherited values alone. Run
-`node scripts/reindex.mjs`. Register the base globally (quietly): `node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>`.
+(from Step 2), the shared-base address if any, and set `version` to the installed plugin version (read
+`${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`; fall back to the template's value); for a JOIN leave
+the inherited values alone. Run `node scripts/reindex.mjs`. Register the base globally (quietly):
+`node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>`.
 If you created a new shared base connected to the company — make the first save (`git add/commit/push`),
 in human terms: "I'm saving the base to the company so the rest of the team can access it".
 

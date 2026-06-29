@@ -13,5 +13,5 @@
     "frontmatterRequired": ["title", "slug", "category", "summary", "status"],
     "statuses": ["draft", "stable"]
   },
-  "version": "0.1.0"
+  "version": "0.12.0"
 }
