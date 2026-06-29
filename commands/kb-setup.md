@@ -70,11 +70,19 @@ organization — never anyone else's. Get them there, hand-held. First install w
 - **Genuine last resort** (they can't/won't make an account now) → create the base locally, say it lives on
   their computer for now, and that you'll connect it to GitHub later (just re-run setup) when they're ready.
 
-## Step 3A — JOIN an existing base (inherit, don't re-ask)
-Download the base into `~/knowledge/<slug>`. Its config already holds the company name, departments and
-the **writing language** (`company.language`) — **inherit them; do NOT ask the joiner about language,
-departments or company name.** You only need who they are (Step 4). (If the downloaded folder has no
-`knowledge.config.json`, it's empty → treat as NEW, Step 3B.)
+## Step 3A — JOIN an existing company base (a new employee connecting) — inherit, don't re-ask
+A teammate/admin already runs the base; this person just needs to connect to it. Lead them by the hand:
+1. **Signed in as themselves.** They need their OWN GitHub account, logged in (`gh auth status`; no
+   account → Step 2 to make one). The company base is **private**, so they also need access to it.
+2. **Access to the private repo.** Download it into `~/knowledge/<slug>`. **If it fails with a
+   permission/authentication error, never show the raw error** — explain plainly: *"This base is private.
+   Ask whoever set it up to invite you to the repository (or to the company's GitHub organization). Once
+   they do, tell me and I'll connect you."* Then retry after they've been invited.
+3. **Inherit, don't re-ask.** The config already holds company name, departments and the writing language
+   (`company.language`) — inherit them; do NOT ask the joiner about any of that. You only need who they
+   are (Step 4). (Empty folder / no `knowledge.config.json` → it's actually NEW, Step 3B.)
+4. **Contributing needs write access.** To save entries back they need push (write) access to the repo. If
+   the admin gave them read-only, they can read everything; ask the admin for write access to contribute.
 
 ## Step 3B — NEW base (first person) — ask the few setup questions
 Ask only: (1) the **company name**, and (2) **"In which language should entries be written?"** → this
@@ -110,8 +118,10 @@ node scripts/reindex.mjs
 node "${CLAUDE_PLUGIN_ROOT}/install.mjs" --base ~/knowledge/<slug>
 ```
 The second line registers the base so **every tool on this machine** (now and later) knows it exists —
-this is what keeps things consistent across apps. For a new shared base, make the first save
-(`git add/commit/push`): "I'm saving it to the company so your team can access it."
+this is what keeps things consistent across apps. For a NEW shared base, make the first save
+(`git add/commit/push`): "I'm saving it to the company so your team can access it." For a **JOIN (new
+employee)**, save just their profile back the same way (`git add/commit/push`) so the team sees they
+joined — if that push is rejected, they have read-only access; tell them to ask the admin for write access.
 
 ## Step 7 — Show the result and teach what's next
 - Open the viewer: `open ~/knowledge/<slug>/viewer.html` — "this is your window into all the company's knowledge."

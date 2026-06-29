@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.17.0
+
+- **New-employee JOIN flow** — onboarding now leads a new team member onto the company base: sign in as themselves, get access to the PRIVATE repo (if the clone is blocked, the agent explains in plain words to ask the admin for an invite to the repo/organization, then retries — never shows a raw error), inherit company/language/departments, and save their profile back so the team sees they joined (read-only access is detected and flagged). Clean separation: creators make a repo under their own org; employees join the existing one.
+
 ## 0.16.0
 
 - **Onboarding for non-technical clients & multi-company use** — each company gets its OWN private repo under THEIR account/organization. /kb-setup now: (a) if the user has no GitHub account, guides them through creating one (and optionally a company Organization) instead of silently falling back to a local-only base; (b) when bases already exist, offers to open one, join a different company, or set up a NEW base for a different company (for people/consultants running several) — never merging two companies into one base.
