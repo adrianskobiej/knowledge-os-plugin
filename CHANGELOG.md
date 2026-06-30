@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.19.0
+
+- **Simpler onboarding** — /kb-setup consolidated from 8 steps into 4 clear phases (figure out the situation, get connected, make it yours, get going), with an explicit up-front summary of what the user actually does (~2-3 questions: a link or company+language, a login, and their name/role). Same capability (detect-first, NEW vs JOIN, GitHub account guidance, employee join, optional conversational onboarding) — less friction and less to get wrong. Joining a company that already uses the base is the minimal path: paste link -> log in -> name/role.
+
 ## 0.18.1
 
 - **Onboarding coherence pass** — fixed two stale step references in /kb-setup after the step renumbering (the connect-existing and already-elsewhere paths now jump to the wrap-up step, not the new conversational-onboarding step, so existing users are not re-onboarded). Reviewed the whole flow end-to-end; the org-already-uses-KB path (detect, connect, or new-employee JOIN with invite/access/write guidance) is consistent.
